@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3239cb89-5861-4ddf-bd59-894acd111a0b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/term-project-ssquali1-snarang4-fpabari-ykothari.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/FeatureCollection/GeoJSONFeatureCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/LoginHandler/LoginManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/acsdatasource/AmadeusAPIClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/acsdatasource/AmadeusDatasource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/acsdatasource/OLD_ACSDatasource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/acsdatasource/OLD_CensusAPIClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/BroadbandHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/LoadCSVHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/RedliningHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/SearchCSVHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/ViewCSVHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/broadband/BroadbandSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/creator/CreatorFromRow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/exceptions/DatasourceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/exceptions/FactoryFailureException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/exceptions/ParserException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/parser/JsonLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/parser/Parser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/searcher/JsonSearcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/searcher/Search.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/server/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/FeatureCollection/GeoJSONFeatureCollection$Feature.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/FeatureCollection/GeoJSONFeatureCollection$Geometry.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/FeatureCollection/GeoJSONFeatureCollection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/acsdatasource/AmadeusAPIClient.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/acsdatasource/AmadeusDatasource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/acsdatasource/OLD_ACSDatasource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/acsdatasource/OLD_CensusAPIClient.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/api/handlers/BroadbandHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/api/handlers/LoadCSVHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/api/handlers/RedliningHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/api/handlers/SearchCSVHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/api/handlers/ViewCSVHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/broadband/BroadbandSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/creator/CreatorFromRow.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/exceptions/DatasourceException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/exceptions/FactoryFailureException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/exceptions/ParserException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/parser/JsonLoader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/parser/Parser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/searcher/JsonSearcher.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/searcher/Search.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/student/main/server/Server.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/s0-1.0-SNAPSHOT.jar" afterDir="false" />
+    </list>
+    <list id="6c704ef1-f0ff-4c4a-8e19-78f99424a7ac" name="Changes by satvik" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/GeocodingHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/api/handlers/SafePlaceHandler.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Z5o7cE1lP6EzubnOE9OJwi2Wc4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "C:/Users/kingn/IdeaProjects/CS0320/term-project-ssquali1-snarang4-fpabari-ykothari/backend/pom.xml"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3239cb89-5861-4ddf-bd59-894acd111a0b" name="Changes" comment="" />
+      <created>1701721134812</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701721134812</updated>
+      <workItem from="1701721136035" duration="1751000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

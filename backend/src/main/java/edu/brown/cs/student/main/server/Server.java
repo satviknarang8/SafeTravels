@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.acsdatasource.OLD_ACSDatasource;
 import edu.brown.cs.student.main.api.handlers.BroadbandHandler;
 import edu.brown.cs.student.main.api.handlers.RedliningHandler;
+import edu.brown.cs.student.main.api.handlers.SafePlaceHandler;
 import edu.brown.cs.student.main.broadband.BroadbandSource;
 import edu.brown.cs.student.main.searcher.JsonSearcher;
 import java.util.HashMap;
@@ -31,12 +32,10 @@ public class Server {
     Map<String, Object> sharedState = new HashMap<>();
     OLD_ACSDatasource broadbandSource = new BroadbandSource();
 
-    //    Spark.get("/loadcsv", new LoadCSVHandler(sharedState));
-    //    Spark.get("/viewcsv", new ViewCSVHandler(sharedState));
-    //    Spark.get("/searchcsv", new SearchCSVHandler(sharedState));
-    Spark.get("/broadband", new BroadbandHandler(broadbandSource));
-    Spark.get("/redlining", new RedliningHandler());
-    Spark.get("/search", new JsonSearcher());
+//    Spark.get("/broadband", new BroadbandHandler(broadbandSource));
+//    Spark.get("/redlining", new RedliningHandler());
+//    Spark.get("/search", new JsonSearcher());
+    Spark.get("/safetymap", new SafePlaceHandler());
 
     Spark.init();
     Spark.awaitInitialization();

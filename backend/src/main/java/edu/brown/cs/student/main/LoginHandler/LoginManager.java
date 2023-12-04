@@ -28,7 +28,7 @@ public class LoginManager {
     return false;
   }
 
-  private int hashPassword(String password) {
+  public int hashPassword(String password) {
     return password.hashCode();
   }
 }

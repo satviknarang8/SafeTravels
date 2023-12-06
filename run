@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd frontend
+npm install
+npm run build
+
+source_dir="dist"
+destination_dir="../backend/src/main/resources/public"
+rm -rf "$destination_dir"
+mkdir -p "$destination_dir"
+mkdir -p "$destination_dir/assets"
+
+for file in "$source_dir/"index.html; do
+  if [ -f "$file" ]; then
+    cp "$file" "$destination_dir"
+  fi
+done
+
+for file in "$source_dir/assets/"index-*.css; do
+  if [ -f "$file" ]; then
+    cp "$file" "$destination_dir/assets"
+  fi
+done
+
+for file in "$source_dir/assets/"*.js; do
+  if [ -f "$file" ]; then
+    cp "$file" "$destination_dir/assets"
+  fi
+done
+
+cd ../backend
+mvn clean package -DskipTests
+mvn exec:java

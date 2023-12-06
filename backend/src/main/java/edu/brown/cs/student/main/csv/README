@@ -1,0 +1,46 @@
+#CSV (https://github.com/cs0320-f23/csv-surajuppalapati19)
+
+##Overview
+The csv package contains two key classes: csvParser and csvFileUtility. The csvParser class is
+a generic parser that is able to transform a csv into a list of rows of data. The data type
+can be determined through our strategy-based interface CreatorFromRow. Our code contains
+two examples of this conversion: defaultSearchCreator and starCreator. The defaultSearchCreator
+is used in our csv package to convert each row into a list of strings which serves as a
+useful base implementation of the CreatorFromRow interface. However, there is a high level
+of customization offered which can be seen through the StarCreator that allows us to turn
+rows of data into Star objects.
+
+The second key component of our csv package is the csvFileUtility. This file offers the ability
+to execute searches once the csv has been parsed. Our file utility has been specifically
+designed to work with our defaultSearchCreator (list of list of strings). This class performs
+a simple search of the rows to find information specified by the user. The user is able to
+specify a specific query and a column (optional) to search within. An optimization that has
+been made to the search is if the user specifies a column, we only look through data in that
+column rather than the whole row. This significantly reduces the amount of data in our
+search space. This is accomplished by a mapping of column names -> column number.
+
+A few design decision I made in my program include how edge cases are handled by the parser and
+file utility classes. For example, if there are duplicate column headers in the file it will
+return an informative error to the user explaining that this is not allowed. Along with this,
+the documentation in the file utility class explains that if the user enters a valid index into
+the columns it will be prioritized as an index rather than a column name.
+
+
+##Testing
+There are two testing suites in our program for both the parser and file utility: ParserTest and
+FileUtilityTest. The ParserTest looks at parsing various types of csv files including those
+that do and don't have a header or use a custom CreatorFromRow implementation (StarCreator).
+There are also tests for our mapping of column name -> column number to ensure it works as
+expected regardless of whether or not the header is present.
+
+The FileUtilityTest tests the key initSearch and executeSearch methods which are responsible for
+handling user queries. We test for various cases including the query being in the wrong column,
+not in the data, in the data, etc.
+
+
+##How to Use
+To run the tests corresponding to the parser run the ParserTest. Similarly, running the
+FileUtilityTest will test the csvFileUtility.
+
+The program can be built by running mvn package and run with the command ./run <INSERT_ARGS_HERE>
+from the root directory. It can also be run through the IntelliJ config interface.

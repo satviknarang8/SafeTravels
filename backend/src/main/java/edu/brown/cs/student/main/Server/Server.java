@@ -133,6 +133,8 @@ public class Server {
                 new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
     Spark.get("redlining", (Route) new RedliningHandler());
     Spark.get("mapbox", (Route) new MapBoxHandler());
+    Spark.get("/login", new edu.brown.cs.student.main.LoginHandler.LoginManager());
+    Spark.get("/register", new edu.brown.cs.student.main.LoginHandler.LoginManager());
 
     Spark.init();
     Spark.awaitInitialization();

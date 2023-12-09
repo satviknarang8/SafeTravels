@@ -1,12 +1,15 @@
-import "../style/App.css";
+// components/App.tsx
+import React from "react";
 import MapBox from "./MapBox";
+import "../style/App.css";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <MapBox/>
+      <MapBox />
     </div>
   );
-}
+};
 
 export default App;
+

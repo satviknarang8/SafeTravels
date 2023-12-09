@@ -19,6 +19,18 @@ function MapBox() {
 
   const [popup, setPopup] = useState<React.ReactNode | null>(null);
 
+  const [startLocation, setStartLocation] = useState<string>('');
+  const [finalDestination, setFinalDestination] = useState<string>('');
+
+  // New function to handle user input for starting location and final destination
+  const handleInput = (inputType: 'start' | 'destination', value: string) => {
+    if (inputType === 'start') {
+      setStartLocation(value);
+    } else {
+      setFinalDestination(value);
+    }
+  };
+
   function onMapClick(e: MapLayerMouseEvent) {
     curLocation(e.lngLat.lat, e.lngLat.lng, true);
   }
@@ -306,6 +318,13 @@ function MapBox() {
     });
   }
 
+  function generateSafestRoute(): void {
+    // TODO: Implement logic to generate the safest route
+    // You can use the startLocation and finalDestination states to get user input
+    // Implement the route generation and update the map accordingly
+    console.log('Generating Safest Route...');
+  }
+
   return (
     <div style={{ position: 'relative' }}>
       <Map
@@ -345,41 +364,53 @@ function MapBox() {
         <div className="horizontal-line"></div>
         <div className="vertical-line"></div>
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          top: '20px',
-          left: '20px',
-          backgroundColor: 'white',
-          padding: '10px',
-          boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)',
-          borderRadius: '5px',
-        }}
-      >
-        <MapWidget
-          onSearch={handleSearch}
-          onToggle={handleToggle}
-          selectedOptions={selectedOptions}
-          onFilterChange={(minLat, maxLat, minLon, maxLon) => {
-            setMinLat(minLat);
-            setMaxLat(maxLat);
-            setMinLon(minLon);
-            setMaxLon(maxLon);
-          }}
-          foundRecordsCount={foundRecordsCount}
-          latitude={viewState.latitude}
-          longitude={viewState.longitude}
-          county={county}
-          state={state}
-          broadbandAccess={broadbandAccess}
-          medianHousehold={medianHousehold}
-          medianFamily={medianFamily}
-          perCapita={perCapita}
-          onManualGeocodeClick={() => setManualGeocodeClicked(true)}
-        />
-      </div>
-    </div>
-  );
+
+
+<div style={{ position: 'absolute', top: '650px', left: '900px', zIndex: 1, color: 'white', backgroundColor: 'rgba(255, 255, 255, 0.9)', padding: '10px', borderRadius: '5px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)' }}>
+  <label style={{ display: 'block', marginBottom: '5px', color: 'black' }}>Starting Location:</label>
+  <input type="text" value={startLocation} onChange={(e) => handleInput('start', e.target.value)} style={{ width: '100%', marginBottom: '10px', padding: '8px', boxSizing: 'border-box', borderRadius: '3px', border: '1px solid #ccc' }} />
+  
+  <label style={{ display: 'block', marginBottom: '5px', color: 'black' }}>Final Destination:</label>
+  <input type="text" value={finalDestination} onChange={(e) => handleInput('destination', e.target.value)} style={{ width: '100%', marginBottom: '10px', padding: '8px', boxSizing: 'border-box', borderRadius: '3px', border: '1px solid #ccc' }} />
+  
+  <button onClick={generateSafestRoute} style={{ backgroundColor: '#007BFF', color: 'black', padding: '8px 12px', borderRadius: '3px', border: 'none', cursor: 'pointer' }}>Generate Safest Route</button>
+</div>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '20px', // Adjust the left position to create space between the input fields and the MapWidget
+    backgroundColor: 'white',
+    padding: '10px',
+    boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+  }}
+>
+  <MapWidget
+    onSearch={handleSearch}
+    onToggle={handleToggle}
+    selectedOptions={selectedOptions}
+    onFilterChange={(minLat, maxLat, minLon, maxLon) => {
+      setMinLat(minLat);
+      setMaxLat(maxLat);
+      setMinLon(minLon);
+      setMaxLon(maxLon);
+    }}
+    foundRecordsCount={foundRecordsCount}
+    latitude={viewState.latitude}
+    longitude={viewState.longitude}
+    county={county}
+    state={state}
+    broadbandAccess={broadbandAccess}
+    medianHousehold={medianHousehold}
+    medianFamily={medianFamily}
+    perCapita={perCapita}
+    onManualGeocodeClick={() => setManualGeocodeClicked(true)}
+  />
+</div>
+</div>
+);
 }
 
 export default MapBox;

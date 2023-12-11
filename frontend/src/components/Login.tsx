@@ -19,7 +19,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onRegister }) => {
     padding: "20px",
     borderRadius: "8px",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-    backgroundColor: "#f0f8ff", // Light blue background color
+    backgroundColor: "#f0f8ff",
   };
 
   const formStyle: React.CSSProperties = {
@@ -31,13 +31,13 @@ const Login: React.FC<LoginProps> = ({ onLogin, onRegister }) => {
     margin: "8px 0",
     padding: "12px",
     borderRadius: "6px",
-    border: "1px solid #4682b4", // Steel Blue border color
+    border: "1px solid #4682b4",
     fontSize: "16px",
     outline: "none",
   };
 
   const buttonStyle: React.CSSProperties = {
-    backgroundColor: "#4169e1", // Royal Blue button color
+    backgroundColor: "#4169e1",
     color: "#fff",
     padding: "12px",
     borderRadius: "6px",
@@ -54,36 +54,25 @@ const Login: React.FC<LoginProps> = ({ onLogin, onRegister }) => {
   };
 
   const handleLogin = async () => {
-    // Validate loginUsername and loginPassword if needed
     try {
       await onLogin(loginUsername, loginPassword);
-      // Clear any previous login error messages
       setGeneralMessage(null);
     } catch (error) {
-      // Handle login error
       console.log("HERE!");
       setGeneralMessage("Login failed. Please try again.");
     }
-
-    // Clear the text boxes after handling login
     setLoginUsername("");
     setLoginPassword("");
   };
 
   const handleRegister = async () => {
-    // Validate registerUsername and registerPassword if needed
     try {
       await onRegister(registerUsername, registerPassword);
-      setGeneralMessage(null);
-
-      // Display success message
       setGeneralMessage("Registration successful!");
     } catch (error) {
-      // Handle registration error
-      setGeneralMessage(`Registration Unsuccessful, username already in use.`);
+      setGeneralMessage(`Registration unsuccessful, username already in use.`);
     }
 
-    // Clear the text boxes after handling registration
     setRegisterUsername("");
     setRegisterPassword("");
   };

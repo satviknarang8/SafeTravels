@@ -9,6 +9,7 @@ import edu.brown.cs.student.main.Server.CSVRouteUtility.LoadCSVHandler;
 import edu.brown.cs.student.main.Server.CSVRouteUtility.SearchCSVHandler;
 import edu.brown.cs.student.main.Server.CSVRouteUtility.ViewCSVHandler;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
+import edu.brown.cs.student.main.Server.LoginHandler.LoginManager;
 import edu.brown.cs.student.main.Server.Maps.MapBoxHandler;
 import edu.brown.cs.student.main.Server.Maps.RedliningHandler;
 import edu.brown.cs.student.main.csv.Parser.csvParser;
@@ -133,8 +134,8 @@ public class Server {
                 new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
     Spark.get("redlining", new RedliningHandler());
     Spark.get("mapbox", new MapBoxHandler());
-    Spark.get("login", new edu.brown.cs.student.main.LoginHandler.LoginManager());
-    Spark.get("register", new edu.brown.cs.student.main.LoginHandler.LoginManager());
+    Spark.get("login", new LoginManager());
+    Spark.get("register", new LoginManager());
 
     Spark.init();
     Spark.awaitInitialization();

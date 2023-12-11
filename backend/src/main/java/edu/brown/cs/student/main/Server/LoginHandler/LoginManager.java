@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.LoginHandler;
+package edu.brown.cs.student.main.Server.LoginHandler;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -19,6 +19,7 @@ public class LoginManager implements Route {
 
   public LoginManager() {
     userCredentials = new HashMap<>();
+    userCredentials.put("test1", "test1".hashCode());
   }
 
   @Override
@@ -124,7 +125,6 @@ public class LoginManager implements Route {
   }
 
   public int hashPassword(String password) {
-    // Note: This is a simple hashing example; you should use a more secure hashing algorithm in a real-world scenario
     return password.hashCode();
   }
 

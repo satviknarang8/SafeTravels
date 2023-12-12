@@ -86,4 +86,41 @@ public class GeocodingAPIClient {
       throw new DatasourceException(e.getMessage());
     }
   }
+  public Map<String, Object> getSafetyRatings(double north, double south, double east, double west, String accessToken) throws DatasourceException {
+    try {
+      // Construct the URL for the Amadeus API
+      String urlStr = String.format(
+              "https://test.api.amadeus.com/v1/safety/safety-rated-locations/by-square?north=%f&west=%f&south=%f&east=%f",
+              north, west, south, east
+      );
+      String urler = "https://test.api.amadeus.com/v1/safety/safety-rated-locations/by-square?north="+north+"&west="+west+"&south="+south+"&east="+east;
+
+      URL url = new URL(urler);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod("GET");
+      connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+      // Check response code
+      if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+        throw new DatasourceException("Failed to fetch safety ratings: " + connection.getResponseMessage());
+      }
+
+      // Parse the JSON response
+      Moshi moshi = new Moshi.Builder().build();
+      JsonAdapter<Map<String, Object>> adapter =
+              moshi.adapter(Types.newParameterizedType(Map.class, String.class, Object.class));
+      Map<String, Object> response = adapter.fromJson(new Buffer().readFrom(connection.getInputStream()));
+
+      connection.disconnect();
+
+      if (response == null) {
+        throw new DatasourceException("Invalid response from Amadeus API");
+      }
+      System.out.println(response);
+      return response;
+
+    } catch (IOException e) {
+      throw new DatasourceException("IOException while fetching safety ratings: " + e.getMessage());
+    }
+  }
 }

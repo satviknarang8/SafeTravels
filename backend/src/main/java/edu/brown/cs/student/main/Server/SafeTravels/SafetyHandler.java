@@ -30,6 +30,7 @@ public class SafetyHandler implements Route {
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {
+    Map<String,Object> safetyRatings = new HashMap<>();
     GeocodingAPIClient geocodingClient = new GeocodingAPIClient();
     String startLoc = request.queryParams("start");
     String endLoc = request.queryParams("end");
@@ -59,7 +60,7 @@ public class SafetyHandler implements Route {
               distance(midpoint.get(0), midpoint.get(1), endCoordinates.get(0), endCoordinates.get(1)));
 
 // Use the midpoint and radius for the Amadeus API call
-      Map<String, Object> safetyRatings = geocodingClient.getSafetyRatings(midpoint.get(0), midpoint.get(1), radius);
+      safetyRatings = geocodingClient.getSafetyRatings(midpoint.get(0), midpoint.get(1), radius);
 
     } catch (DatasourceException e) {
       responseMap.put("type", "error");
@@ -69,7 +70,7 @@ public class SafetyHandler implements Route {
     }
 
     responseMap.put("type", "success");
-    responseMap.put("date_time", LocalDateTime.now().toString());
+    responseMap.put("data", safetyRatings);
     return adapter.toJson(responseMap);
   }
   private List<Double> calculateMidpoint(double lat1, double lon1, double lat2, double lon2) {

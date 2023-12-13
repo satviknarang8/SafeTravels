@@ -43,7 +43,7 @@ public class GeocodingAPIClientTest {
   public void testSuccessfulApiCall() throws Exception {
     String sampleResponse = "{\"data\": [{\"safetyScores\": {\"overall\": 45}}]}";
 
-    Map<String, Object> result = client.getSafetyRatings(43.64521, 43.760768, 7.323896, 7.182018, "fAlg5erdEddMyNowCsLiPzejatz8");
+    Map<String, Object> result = client.getSafetyRatings(41.397158, 2.160873, 2);
     assertNotNull(result);
     assertTrue(result.containsKey("data"));
     // Additional assertions to check the structure and values of the response

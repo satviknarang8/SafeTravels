@@ -14,6 +14,9 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import static java.awt.geom.Point2D.distance;
+import static java.lang.Math.max;
+
 public class SafetyHandler implements Route {
 
   public SafetyHandler() {
@@ -49,12 +52,15 @@ public class SafetyHandler implements Route {
       List<Double> startCoordinates = geocodingClient.getCoordinates(startLoc);
       List<Double> endCoordinates = geocodingClient.getCoordinates(endLoc);
 
-      // Create bounding box and call Amadeus API (pseudo-code)
-      // BoundingBox bbox = createBoundingBox(startCoordinates, endCoordinates);
-      // List<SafetyRating> safetyRatings = callAmadeusSafePlaceApi(bbox, apiKey);
+      List<Double> midpoint = calculateMidpoint(startCoordinates.get(0), startCoordinates.get(1), endCoordinates.get(0), endCoordinates.get(1));
 
-      // Add the safety ratings to the response
-      // responseMap.put("safety_ratings", safetyRatings);
+// Calculate radius
+      int radius = (int) max(distance(midpoint.get(0), midpoint.get(1), startCoordinates.get(0), startCoordinates.get(1)),
+              distance(midpoint.get(0), midpoint.get(1), endCoordinates.get(0), endCoordinates.get(1)));
+
+// Use the midpoint and radius for the Amadeus API call
+      Map<String, Object> safetyRatings = geocodingClient.getSafetyRatings(midpoint.get(0), midpoint.get(1), radius);
+
     } catch (DatasourceException e) {
       responseMap.put("type", "error");
       responseMap.put("error_type", "datasource");
@@ -66,4 +72,10 @@ public class SafetyHandler implements Route {
     responseMap.put("date_time", LocalDateTime.now().toString());
     return adapter.toJson(responseMap);
   }
+  private List<Double> calculateMidpoint(double lat1, double lon1, double lat2, double lon2) {
+    double midLat = (lat1 + lat2) / 2.0;
+    double midLon = (lon1 + lon2) / 2.0;
+    return List.of(midLat, midLon);
+  }
+
 }

@@ -9,6 +9,7 @@ import edu.brown.cs.student.main.Server.CSVRouteUtility.LoadCSVHandler;
 import edu.brown.cs.student.main.Server.CSVRouteUtility.SearchCSVHandler;
 import edu.brown.cs.student.main.Server.CSVRouteUtility.ViewCSVHandler;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
+import edu.brown.cs.student.main.Server.LoginHandler.LoginManager;
 import edu.brown.cs.student.main.Server.Maps.MapBoxHandler;
 import edu.brown.cs.student.main.Server.Maps.RedliningHandler;
 import edu.brown.cs.student.main.csv.Parser.csvParser;
@@ -123,16 +124,18 @@ public class Server {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    Spark.get("loadcsv", (Route) new LoadCSVHandler());
-    Spark.get("viewcsv", (Route) new ViewCSVHandler());
-    Spark.get("searchcsv", (Route) new SearchCSVHandler());
+    Spark.get("loadcsv", new LoadCSVHandler());
+    Spark.get("viewcsv", new ViewCSVHandler());
+    Spark.get("searchcsv", new SearchCSVHandler());
     Spark.get(
         "broadband",
         (Route)
             new BroadbandHandler(
                 new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
-    Spark.get("redlining", (Route) new RedliningHandler());
-    Spark.get("mapbox", (Route) new MapBoxHandler());
+    Spark.get("redlining", new RedliningHandler());
+    Spark.get("mapbox", new MapBoxHandler());
+    Spark.get("login", new LoginManager());
+    Spark.get("register", new LoginManager());
 
     Spark.init();
     Spark.awaitInitialization();

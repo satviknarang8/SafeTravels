@@ -42,7 +42,7 @@ const Root: React.FC = () => {
   };
 
   return (
-    <React.StrictMode>
+    <>
       {isLoggedIn ? (
         <App />
       ) : (
@@ -56,7 +56,7 @@ const Root: React.FC = () => {
         />
       )}
           
-    </React.StrictMode>
+    </>
   );
 };
 

@@ -1,26 +1,23 @@
 package edu.brown.cs.student.main.Server.SafeTravels;
 
+import static java.awt.geom.Point2D.distance;
+import static java.lang.Math.max;
+
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import static java.awt.geom.Point2D.distance;
-import static java.lang.Math.max;
-
 public class SafetyHandler implements Route {
 
-  public SafetyHandler() {
-  }
+  public SafetyHandler() {}
 
   /**
    * @param request
@@ -30,7 +27,7 @@ public class SafetyHandler implements Route {
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {
-    Map<String,Object> safetyRatings = new HashMap<>();
+    Map<String, Object> safetyRatings = new HashMap<>();
     GeocodingAPIClient geocodingClient = new GeocodingAPIClient();
     String startLoc = request.queryParams("start");
     String endLoc = request.queryParams("end");
@@ -53,13 +50,29 @@ public class SafetyHandler implements Route {
       List<Double> startCoordinates = geocodingClient.getCoordinates(startLoc);
       List<Double> endCoordinates = geocodingClient.getCoordinates(endLoc);
 
-      List<Double> midpoint = calculateMidpoint(startCoordinates.get(0), startCoordinates.get(1), endCoordinates.get(0), endCoordinates.get(1));
+      List<Double> midpoint =
+          calculateMidpoint(
+              startCoordinates.get(0),
+              startCoordinates.get(1),
+              endCoordinates.get(0),
+              endCoordinates.get(1));
 
-// Calculate radius
-      int radius = (int) max(distance(midpoint.get(0), midpoint.get(1), startCoordinates.get(0), startCoordinates.get(1)),
-              distance(midpoint.get(0), midpoint.get(1), endCoordinates.get(0), endCoordinates.get(1)));
+      // Calculate radius
+      int radius =
+          (int)
+              max(
+                  distance(
+                      midpoint.get(0),
+                      midpoint.get(1),
+                      startCoordinates.get(0),
+                      startCoordinates.get(1)),
+                  distance(
+                      midpoint.get(0),
+                      midpoint.get(1),
+                      endCoordinates.get(0),
+                      endCoordinates.get(1)));
 
-// Use the midpoint and radius for the Amadeus API call
+      // Use the midpoint and radius for the Amadeus API call
       safetyRatings = geocodingClient.getSafetyRatings(midpoint.get(0), midpoint.get(1), radius);
 
     } catch (DatasourceException e) {
@@ -73,10 +86,10 @@ public class SafetyHandler implements Route {
     responseMap.put("data", safetyRatings);
     return adapter.toJson(responseMap);
   }
+
   private List<Double> calculateMidpoint(double lat1, double lon1, double lat2, double lon2) {
     double midLat = (lat1 + lat2) / 2.0;
     double midLon = (lon1 + lon2) / 2.0;
     return List.of(midLat, midLon);
   }
-
 }

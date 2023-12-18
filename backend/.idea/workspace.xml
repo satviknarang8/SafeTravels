@@ -4,8 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c479e328-24c6-4a9f-ad83-f9ef4f8967f6" name="Changes" comment="">
+    <list default="true" id="5372af12-3695-4e00-b455-f8ed1a14da83" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/pom.xml.bak" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/LoginHandler/LoginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/LoginHandler/LoginManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/GeocodingAPIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/GeocodingAPIClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/GeocodingAPIClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/GeocodingAPIClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/loginManagerTests/TestLoginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/loginManagerTests/TestLoginManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps/_metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-DDTOIOM4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-DDTOIOM4.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-PPQOYUYN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-PPQOYUYN.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-UXIASGQL.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-UXIASGQL.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/mapbox-gl-ZCQ5HOAM.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/mapbox-gl-ZCQ5HOAM.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-dom_client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-dom_client.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-map-gl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-map-gl.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-dev-runtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-dev-runtime.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-runtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-runtime.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-DDTOIOM4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-DDTOIOM4.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-PPQOYUYN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-PPQOYUYN.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-UXIASGQL.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-UXIASGQL.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/mapbox-gl-ZCQ5HOAM.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/mapbox-gl-ZCQ5HOAM.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-dom_client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-dom_client.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-map-gl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-map-gl.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-dev-runtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-dev-runtime.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-runtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-runtime.js.map" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +76,16 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2ZJvwuxMx0WbZiLYYmR4Hy0R6xk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Server.executor": "Run",
     "JUnit.GeocodingAPIClientTest.executor": "Run",
     "OverrideImplement.generate.javadoc": "true",
@@ -56,7 +107,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.GeocodingAPIClientTest.testSuccessfulApiCall">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.brown.cs.student.main.Server.Server" />
       <module name="s0" />
@@ -103,9 +154,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.GeocodingAPIClientTest.testSuccessfulApiCall" />
         <item itemvalue="JUnit.GeocodingAPIClientTest" />
-        <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
   </component>
@@ -144,5 +195,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

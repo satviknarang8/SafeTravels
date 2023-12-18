@@ -46,16 +46,17 @@ test("after entering valid login credentials and clicking Login, the user should
   // Check if the user is redirected (modify this based on your actual redirection logic)
 
   // You might want to assert some condition on the redirected page
-  await expect(page.locator("#generateSafestButton")).toBeVisible();
+  await expect(page.locator("#generateSafest")).toBeVisible();
 });
 
 test("after entering valid register credentials and clicking Register, a success message should appear", async ({
   page,
 }) => {
   await page.goto("http://localhost:5173/");
+  const randomSuffix = Math.ceil(Math.random() * 100);
 
   // Enter valid register credentials
-  await page.fill("#registerUsername", "newUsername");
+  await page.fill("#registerUsername", "newUsername" + randomSuffix);
   await page.fill("#registerPassword", "newPassword");
 
   // Click the Register button
@@ -78,9 +79,73 @@ test("Upon running the above a second time, an error message should appear", asy
 
   // Click the Register button
   await page.click("#registerButton");
+  await page.fill("#registerUsername", "newUsername");
+  await page.fill("#registerPassword", "newPassword");
+
+  // Click the Register button
+  await page.click("#registerButton");
 
   // Check if the success message appears
   await expect(page.locator(".custom-message")).toHaveText(
-    "Registration unsuccessful, this username is already in use."
+    "Registration unsuccessful, username already in use."
   );
+});
+
+test("when 'Report A Hazard' button is clicked, the hazard dropdown should be visible", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/");
+
+  await page.fill("#loginUsername", "test1");
+  await page.fill("#loginPassword", "test1");
+
+  // Click the Login button
+  await page.click("#loginButton");
+
+  // Click the 'Report A Hazard' button
+  await page.click("#reportHazard");
+
+  // Check if the hazard dropdown is visible
+  await expect(page.locator("#hazardDropdown")).toBeVisible();
+});
+
+test("on login, the 'Report A Hazard' button and 'Access Previously Viewed Routes' button should be visible", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/");
+
+  // Assume user has logged in, you may need to perform login actions here
+
+  await page.fill("#loginUsername", "test1");
+  await page.fill("#loginPassword", "test1");
+
+  // Click the Login button
+  await page.click("#loginButton");
+
+  // Click the 'Report A Hazard' button
+  await page.click("#reportHazard");
+
+  // Check if the 'Report A Hazard' button is visible
+  await expect(page.locator("#reportHazard")).toBeVisible();
+
+  // Check if the 'Access Previously Viewed Routes' button is visible
+  await expect(page.locator("#accessPreviously")).toBeVisible();
+});
+
+test("when 'Access Previously Viewed Routes' button is clicked, the dropdown should be visible", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:5173/");
+
+  await page.fill("#loginUsername", "test1");
+  await page.fill("#loginPassword", "test1");
+
+  // Click the Login button
+  await page.click("#loginButton");
+
+  // Click the 'Access Previously Viewed Routes' button
+  await page.click("#accessPreviously");
+
+  // Check if the dropdown is visible
+  await expect(page.locator("#previouslyViewedRoutesDropdown")).toBeVisible();
 });

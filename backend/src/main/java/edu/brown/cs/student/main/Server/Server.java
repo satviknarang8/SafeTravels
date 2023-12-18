@@ -128,11 +128,11 @@ public class Server {
     Spark.get("loadcsv", new LoadCSVHandler());
     Spark.get("viewcsv", new ViewCSVHandler());
     Spark.get("searchcsv", new SearchCSVHandler());
-    Spark.get(
-        "broadband",
-        (Route)
-            new BroadbandHandler(
-                new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
+//    Spark.get(
+//        "broadband",
+//        (Route)
+//            new BroadbandHandler(
+//                new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
     Spark.get("redlining", new RedliningHandler());
     Spark.get("mapbox", new MapBoxHandler());
     Spark.get("login", new LoginManager());

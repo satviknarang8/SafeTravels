@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Popup } from "react-map-gl";
 import Map, {
   Layer,
   MapLayerMouseEvent,
@@ -31,15 +32,25 @@ function MapBox() {
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
+    if (showHazardDropdown) {
+      setShowHazardDropdown(!showHazardDropdown);
+    }
   };
 
   const toggleHazardDropdown = () => {
+    if (showDropdown) {
+      setShowDropdown(!showDropdown);
+    }
     setShowHazardDropdown(!showHazardDropdown);
   };
 
   const [startLocation, setStartLocation] = useState<string>("");
   const [finalDestination, setFinalDestination] = useState<string>("");
   const [hazard, setHazard] = useState<string>("");
+  const [clickedHazard, setClickedHazard] = useState<{
+    coordinates: number[];
+    title: string;
+  } | null>(null);
 
   // New function to handle user input for starting location and final destination
   const handleInput = (inputType: "start" | "destination", value: string) => {
@@ -49,10 +60,6 @@ function MapBox() {
       setFinalDestination(value);
     }
   };
-
-  function onMapClick(e: MapLayerMouseEvent) {
-    curLocation(e.lngLat.lat, e.lngLat.lng, true);
-  }
 
   function curLocation(
     latitude: number,
@@ -75,7 +82,7 @@ function MapBox() {
           const popupContent = (
             <div>
               <h3>
-                {latitude}, {longitude}
+                {longitude}, {latitude}
               </h3>
               <h3>
                 {county}, {state}
@@ -128,14 +135,12 @@ function MapBox() {
         features: [...prevMarkers.features, newHazardMarker],
       }));
 
-      // TODO: Send the hazard data to your backend for storage or further processing
-
+      // are we going to use backend here?
       // Clear the hazard input field
       setHazard("");
 
       // Hide the hazard dropdown
       setShowHazardDropdown(false);
-      console.log(hazardMarkers);
     }
   };
 
@@ -285,120 +290,60 @@ function MapBox() {
   //   }
   // };
 
-  // async function load_file(args: string[]): Promise<string> {
-  //   return new Promise<string>(async (resolve, reject) => {
-  //     // Case where an incorrect number of parameters is inputted while loading a CSV file
-  //     if (args.length !== 2) {
-  //       resolve("Invalid number of arguments.");
-  //       return;
-  //     }
+  function onMapClick(e: MapLayerMouseEvent) {
+    const roundToNearest = 0.001; // Set the desired rounding precision
+    const clickedCoordinates = [
+      Math.round(e.lngLat.lng / roundToNearest) * roundToNearest,
+      Math.round(e.lngLat.lat / roundToNearest) * roundToNearest,
+    ];
+    console.log(e);
 
-  //     const filePath = args[0];
-  //     const hasHeader = args[1];
-  //     // Case where inputted file IS a CSV file
-  //     if (filePath.endsWith(".csv")) {
-  //       const url = "loadcsv?filePath=" + filePath + "&&hasHeader=" + hasHeader;
-  //       try {
-  //         const data = await fetchDataFromBackend(url);
-  //         const dataJSON = JSON.stringify(data);
-  //         const response = JSON.parse(dataJSON);
-  //         if (response.error_message != undefined) {
-  //           resolve(JSON.parse(dataJSON).error_message);
-  //         }
-  //         resolve("Successfully loaded file " + response.filepath);
-  //       } catch (error) {
-  //         console.error("Error parsing JSON: ", error);
-  //         resolve("Error parsing JSON: " + error);
-  //       }
-  //     } else {
-  //       // Case where inputted file is NOT a CSV file
-  //       resolve("Invalid file type.");
-  //     }
-  //   });
-  // }
+    // Check if the clicked coordinates match any hazard marker
+    for (let i = 0; i < hazardMarkers.features.length; i++) {
+      const hazardMarker = hazardMarkers.features[i];
 
-  // async function search(args: string[]): Promise<string> {
-  //   return new Promise<string>(async (resolve, reject) => {
-  //     // case where incorrect number of parameters passed in
-  //     if (args.length !== 2) {
-  //       resolve("Invalid number of arguments.");
-  //     }
+      // Use type assertion to specify that the geometry is a Point
+      const hazardCoordinates = (hazardMarker.geometry as any).coordinates;
 
-  //     const value = args[1];
-  //     const column = args[0];
-  //     const url = "searchcsv?query=" + value + "&&columnToSearch=" + column;
-  //     try {
-  //       const data = await fetchDataFromBackend(url);
-  //       const dataJSON = JSON.stringify(data);
-  //       const response = JSON.parse(dataJSON);
-  //       if (response.error_message != undefined) {
-  //         resolve(JSON.parse(dataJSON).error_message);
-  //       }
-  //       resolve(response);
-  //     } catch (error) {
-  //       console.error("Error parsing JSON:", error);
-  //       resolve("Error parsing JSON: " + error);
-  //     }
-  //   });
-  // }
+      // Round the hazard coordinates to the nearest 0.001
+      const roundedHazardCoordinates = [
+        Math.round(hazardCoordinates[0] / roundToNearest) * roundToNearest,
+        Math.round(hazardCoordinates[1] / roundToNearest) * roundToNearest,
+      ];
 
-  // async function broadband(args: string[]): Promise<string> {
-  //   return new Promise<string>(async (resolve, reject) => {
-  //     // case where incorrect number of parameters passed in
-  //     if (args.length !== 2) {
-  //       resolve("Invalid number of arguments.");
-  //     }
+      // Compare rounded coordinates and print text if there's a match
+      console.log(roundedHazardCoordinates[0]);
+      console.log(roundedHazardCoordinates[1]);
+      console.log(clickedCoordinates[0]);
+      console.log(clickedCoordinates[1]);
 
-  //     const state = args[0];
-  //     const county = args[1];
-  //     const url = "broadband?state=" + state + "&&county=" + county;
-  //     try {
-  //       const data = await fetchDataFromBackend(url);
-  //       const dataJSON = JSON.stringify(data);
-  //       const response = JSON.parse(dataJSON);
-  //       if (response.error_message != undefined) {
-  //         resolve(JSON.parse(dataJSON).error_message);
-  //       }
-  //       const broadbandData = response.data;
-  //       if (broadbandData.length >= 2) {
-  //         const headerRow = broadbandData[0];
-  //         const dataRow = broadbandData[1];
-  //         const columnIndex = headerRow.findIndex(
-  //           (column: string) => column === '"S2802_C03_022E"'
-  //         );
-  //         if (columnIndex !== -1) {
-  //           const broadbandAccessValue = dataRow[columnIndex];
+      if (
+        roundedHazardCoordinates[0] === clickedCoordinates[0] &&
+        roundedHazardCoordinates[1] === clickedCoordinates[1]
+      ) {
+        const title = hazardMarker.properties?.title || "";
+        const hazardInformation = {
+          coordinates: roundedHazardCoordinates,
+          title: title,
+        };
 
-  //           // Remove the double quotes and parse the value
-  //           const broadbandAccess = parseFloat(
-  //             broadbandAccessValue.replace(/"/g, "")
-  //           );
+        // Set the hazard information in the state
+        setClickedHazard(hazardInformation);
+        return; // Exit the loop after finding a match
+      }
+    }
 
-  //           if (!isNaN(broadbandAccess)) {
-  //             // Set broadbandAccess in your state
-  //             setBroadbandAccess(broadbandAccess);
-  //           } else {
-  //             // Handle the case when the value is not a valid number
-  //             console.error(
-  //               "Invalid broadband access value:",
-  //               broadbandAccessValue
-  //             );
-  //           }
-  //         }
-  //       }
-  //       resolve(response);
-  //     } catch (error) {
-  //       console.error("Error parsing JSON:", error);
-  //       resolve("Error parsing JSON: " + error);
-  //     }
-  //   });
-  // }
+    // If no hazard marker matches, proceed with other logic
+    curLocation(e.lngLat.lat, e.lngLat.lng, true);
+    setClickedHazard(null);
+  }
 
   function generateSafestRoute() {
     handleSearch(startLocation);
-    // TODO: Implement logic to generate the safest route
-    // You can use the startLocation and finalDestination states to get user input
-    // Implement the route generation and update the map accordingly
+    setStartLocation("");
+    setFinalDestination("");
+
+    // TODO: FINISH LOGIC HERE !!
     console.log("Generating Safest Route...");
   }
 
@@ -454,7 +399,26 @@ function MapBox() {
             {popup}
           </div>
         )}
+
         <div className="mapboxgl-marker" />
+        {clickedHazard && (
+          <div
+            className="map-popup"
+            style={{
+              position: "absolute",
+              top: "250px",
+              left: "750px",
+              zIndex: 1,
+              pointerEvents: "none",
+              backgroundColor: "white",
+              opacity: 0.6,
+              color: "red",
+            }}
+          >
+            <h3>{"Hazard Message:"}</h3>
+            <h3>{clickedHazard.title}</h3>
+          </div>
+        )}
       </Map>
       <div
         className="crosshair"
@@ -589,7 +553,7 @@ function MapBox() {
                 borderRadius: "3px",
                 border: "1px solid #ccc",
               }}
-              placeholder="What was the issue?"
+              placeholder="What was the crime? Theft, violence.."
             />
             <button
               onClick={submitHazard}

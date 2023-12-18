@@ -73,19 +73,15 @@ test("Upon running the above a second time, an error message should appear", asy
 }) => {
   await page.goto("http://localhost:5173/");
 
-  // Enter valid register credentials
   await page.fill("#registerUsername", "newUsername");
   await page.fill("#registerPassword", "newPassword");
 
-  // Click the Register button
   await page.click("#registerButton");
   await page.fill("#registerUsername", "newUsername");
   await page.fill("#registerPassword", "newPassword");
 
-  // Click the Register button
   await page.click("#registerButton");
 
-  // Check if the success message appears
   await expect(page.locator(".custom-message")).toHaveText(
     "Registration unsuccessful, username already in use."
   );
@@ -99,13 +95,10 @@ test("when 'Report A Hazard' button is clicked, the hazard dropdown should be vi
   await page.fill("#loginUsername", "test1");
   await page.fill("#loginPassword", "test1");
 
-  // Click the Login button
   await page.click("#loginButton");
 
-  // Click the 'Report A Hazard' button
   await page.click("#reportHazard");
 
-  // Check if the hazard dropdown is visible
   await expect(page.locator("#hazardDropdown")).toBeVisible();
 });
 
@@ -114,21 +107,15 @@ test("on login, the 'Report A Hazard' button and 'Access Previously Viewed Route
 }) => {
   await page.goto("http://localhost:5173/");
 
-  // Assume user has logged in, you may need to perform login actions here
-
   await page.fill("#loginUsername", "test1");
   await page.fill("#loginPassword", "test1");
 
-  // Click the Login button
   await page.click("#loginButton");
 
-  // Click the 'Report A Hazard' button
   await page.click("#reportHazard");
 
-  // Check if the 'Report A Hazard' button is visible
   await expect(page.locator("#reportHazard")).toBeVisible();
 
-  // Check if the 'Access Previously Viewed Routes' button is visible
   await expect(page.locator("#accessPreviously")).toBeVisible();
 });
 
@@ -140,12 +127,11 @@ test("when 'Access Previously Viewed Routes' button is clicked, the dropdown sho
   await page.fill("#loginUsername", "test1");
   await page.fill("#loginPassword", "test1");
 
-  // Click the Login button
   await page.click("#loginButton");
 
-  // Click the 'Access Previously Viewed Routes' button
   await page.click("#accessPreviously");
 
-  // Check if the dropdown is visible
   await expect(page.locator("#previouslyViewedRoutesDropdown")).toBeVisible();
 });
+
+// add not visible expects.

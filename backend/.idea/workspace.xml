@@ -5,54 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5372af12-3695-4e00-b455-f8ed1a14da83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml.bak" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/LoginHandler/LoginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/LoginHandler/LoginManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/GeocodingAPIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/GeocodingAPIClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/GeocodingAPIClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/GeocodingAPIClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/loginManagerTests/TestLoginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/loginManagerTests/TestLoginManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps/_metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-DDTOIOM4.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-DDTOIOM4.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-PPQOYUYN.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-PPQOYUYN.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-UXIASGQL.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/chunk-UXIASGQL.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/mapbox-gl-ZCQ5HOAM.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/mapbox-gl-ZCQ5HOAM.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-dom_client.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-dom_client.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-map-gl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react-map-gl.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-dev-runtime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-dev-runtime.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-runtime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_7762a9b8/react_jsx-runtime.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-DDTOIOM4.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-DDTOIOM4.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-PPQOYUYN.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-PPQOYUYN.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-UXIASGQL.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/chunk-UXIASGQL.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/mapbox-gl-ZCQ5HOAM.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/mapbox-gl-ZCQ5HOAM.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-dom_client.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-dom_client.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-map-gl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react-map-gl.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-dev-runtime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-dev-runtime.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-runtime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/node_modules/.vite/deps_temp_dded1e2c/react_jsx-runtime.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/playwright-report/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/playwright-report/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

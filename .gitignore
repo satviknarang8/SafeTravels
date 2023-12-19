@@ -1,0 +1,17 @@
+#MacOS default file
+.DS_Store
+
+#Frontend ignored folders
+frontend/node_modules/
+frontend/playwright-report/
+frontend/test-results/
+frontend/.vscode
+
+#Backend ignored folders
+#IntelliJ default file
+backend/.idea/
+#Maven
+backend/target/
+backend/.mvn
+backend/.mvn-classpath
+backend/pom.xml.bak

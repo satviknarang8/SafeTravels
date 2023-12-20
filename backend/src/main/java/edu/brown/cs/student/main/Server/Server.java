@@ -2,18 +2,14 @@ package edu.brown.cs.student.main.Server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.Server.BroadbandRouteUtility.ACSAPIBroadbandSource;
-import edu.brown.cs.student.main.Server.BroadbandRouteUtility.BroadbandHandler;
-import edu.brown.cs.student.main.Server.BroadbandRouteUtility.CachedACSAPIBroadbandSource;
-import edu.brown.cs.student.main.Server.CSVRouteUtility.LoadCSVHandler;
-import edu.brown.cs.student.main.Server.CSVRouteUtility.SearchCSVHandler;
-import edu.brown.cs.student.main.Server.CSVRouteUtility.ViewCSVHandler;
+//import edu.brown.cs.student.main.Server.BroadbandRouteUtility.ACSAPIBroadbandSource;
+//import edu.brown.cs.student.main.Server.BroadbandRouteUtility.BroadbandHandler;
+//import edu.brown.cs.student.main.Server.BroadbandRouteUtility.CachedACSAPIBroadbandSource;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import edu.brown.cs.student.main.Server.LoginHandler.LoginManager;
 import edu.brown.cs.student.main.Server.Maps.MapBoxHandler;
 import edu.brown.cs.student.main.Server.Maps.RedliningHandler;
 import edu.brown.cs.student.main.Server.SafeTravels.SafetyHandler;
-import edu.brown.cs.student.main.csv.Parser.csvParser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,9 +18,6 @@ import spark.Spark;
 
 /** The Server class represents a server application for handling CSV data. */
 public class Server {
-
-  // CSV parser used to parse the CSV data
-  private static csvParser<List<String>> parser = null;
 
   // List to store CSV data rows
   private static List<List<String>> rows = new ArrayList<>();
@@ -58,24 +51,6 @@ public class Server {
       defensiveRows = Collections.unmodifiableList(rows);
     }
     return defensiveRows;
-  }
-
-  /**
-   * Set the CSV parser used to parse the CSV data.
-   *
-   * @param p The CSV parser to be set.
-   */
-  public static void setParser(csvParser<List<String>> p) {
-    parser = p;
-  }
-
-  /**
-   * Get the CSV parser used to parse the CSV data.
-   *
-   * @return The CSV parser.
-   */
-  public static csvParser<List<String>> getParser() {
-    return parser;
   }
 
   /**
@@ -125,9 +100,6 @@ public class Server {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    Spark.get("loadcsv", new LoadCSVHandler());
-    Spark.get("viewcsv", new ViewCSVHandler());
-    Spark.get("searchcsv", new SearchCSVHandler());
 //    Spark.get(
 //        "broadband",
 //        (Route)

@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.Private.APIkeys;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,21 +13,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import okio.Buffer;
+import java.net.URLEncoder;
 
-public class GeocodingAPIClient {
+public class APIClient {
   private final APIkeys apiKeys = new APIkeys();
 
-  public GeocodingAPIClient() throws DatasourceException {}
-
+  public APIClient() throws DatasourceException {
+  }
   private static final String base_url = "https://maps.googleapis.com/maps/api/geocode/json?";
 
   /**
    * Method to connect to the URL which we want
-   *
    * @param requestURL the URL to connect to
    * @return The successful connection
    * @throws IOException Throws if there is an error in connecting to the URL
@@ -52,7 +52,6 @@ public class GeocodingAPIClient {
       throw new DatasourceException(e.getMessage());
     }
   }
-
   public List<Double> getCoordinates(String address) throws DatasourceException {
     try {
       String encoded = URLEncoder.encode(address, "UTF-8");
@@ -91,9 +90,7 @@ public class GeocodingAPIClient {
       throw new DatasourceException(e.getMessage());
     }
   }
-
-  public Map<String, Object> getSafetyRatings(double lat, double lon, int radius)
-      throws DatasourceException {
+  public Map<String, Object> getSafetyRatings(double lat, double lon, int radius) throws DatasourceException {
     try {
       // Step 1: Get a new access token
       String tokenUrl = "https://test.api.amadeus.com/v1/security/oauth2/token";
@@ -104,11 +101,10 @@ public class GeocodingAPIClient {
       tokenConnection.setDoOutput(true);
 
       // Client credentials
-      APIkeys apIkeys = new APIkeys();
+      APIkeys apIkeys= new APIkeys();
       String clientId = apIkeys.safePlaceKey;
       String clientSecret = apiKeys.safePlaceSecret;
-      String urlParameters =
-          "grant_type=client_credentials&client_id=" + clientId + "&client_secret=" + clientSecret;
+      String urlParameters = "grant_type=client_credentials&client_id=" + clientId + "&client_secret=" + clientSecret;
 
       // Send the request
       try (DataOutputStream wr = new DataOutputStream(tokenConnection.getOutputStream())) {
@@ -118,13 +114,11 @@ public class GeocodingAPIClient {
 
       // Check response and retrieve token
       if (tokenConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-        throw new DatasourceException(
-            "Failed to obtain token: " + tokenConnection.getResponseMessage());
+        throw new DatasourceException("Failed to obtain token: " + tokenConnection.getResponseMessage());
       }
 
       // Parse the token response
-      BufferedReader in =
-          new BufferedReader(new InputStreamReader(tokenConnection.getInputStream()));
+      BufferedReader in = new BufferedReader(new InputStreamReader(tokenConnection.getInputStream()));
       String inputLine;
       StringBuilder content = new StringBuilder();
       while ((inputLine = in.readLine()) != null) {
@@ -146,52 +140,26 @@ public class GeocodingAPIClient {
       String longitude = Double.toString(lon);
       String rad = Integer.toString(radius);
 
-      // Use the string variables in the URL
+// Use the string variables in the URL
 
-      String alt =
-          "https://test.api.amadeus.com/v1/safety/safety-rated-locations?latitude=41.397158&longitude=2.160873&page%5Boffset%5D=0&radius=2";
-      System.out.println(
-          alt.equals(
-              baseUrl
-                  + "latitude="
-                  + latitude
-                  + "&longitude="
-                  + longitude
-                  + "&page%5Boffset%5D=0&radius="
-                  + rad));
-      System.out.println(
-          baseUrl
-              + "latitude="
-              + latitude
-              + "&longitude="
-              + longitude
-              + "&page%5Boffset%5D=0&radius="
-              + rad);
+      String alt = "https://test.api.amadeus.com/v1/safety/safety-rated-locations?latitude=41.397158&longitude=2.160873&page%5Boffset%5D=0&radius=2";
+      System.out.println(alt.equals(baseUrl+"latitude="+latitude+"&longitude="+longitude+"&page%5Boffset%5D=0&radius="+rad));
+      System.out.println(baseUrl+"latitude="+latitude+"&longitude="+longitude+"&page%5Boffset%5D=0&radius="+rad);
 
-      URL url =
-          new URL(
-              baseUrl
-                  + "latitude="
-                  + latitude
-                  + "&longitude="
-                  + longitude
-                  + "&page%5Boffset%5D=0&radius="
-                  + rad);
+      URL url = new URL(baseUrl+"latitude="+latitude+"&longitude="+longitude+"&page%5Boffset%5D=0&radius="+rad);
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod("GET");
       connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
       // Check response code
       if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-        throw new DatasourceException(
-            "Failed to fetch safety ratings: " + connection.getResponseMessage());
+        throw new DatasourceException("Failed to fetch safety ratings: " + connection.getResponseMessage());
       }
 
       // Parse the JSON response for safety ratings
       JsonAdapter<Map<String, Object>> adapter =
           moshi.adapter(Types.newParameterizedType(Map.class, String.class, Object.class));
-      Map<String, Object> response =
-          adapter.fromJson(new Buffer().readFrom(connection.getInputStream()));
+      Map<String, Object> response = adapter.fromJson(new Buffer().readFrom(connection.getInputStream()));
 
       connection.disconnect();
 
@@ -202,8 +170,7 @@ public class GeocodingAPIClient {
       return response;
 
     } catch (IOException e) {
-      throw new DatasourceException(
-          "IOException while fetching safety ratings or obtaining token: " + e.getMessage());
+      throw new DatasourceException("IOException while fetching safety ratings or obtaining token: " + e.getMessage());
     }
   }
 }

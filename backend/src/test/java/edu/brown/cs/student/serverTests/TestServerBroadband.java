@@ -6,7 +6,7 @@ import static spark.Spark.after;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.Server.BroadbandRouteUtility.BroadbandHandler;
+//import edu.brown.cs.student.main.Server.BroadbandRouteUtility.BroadbandHandler;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import edu.brown.cs.student.serverTests.mocks.MockedACSAPIBroadbandSource;
 import edu.brown.cs.student.serverTests.mocks.MockedDatasourceErrorACSAPIBroadbandSource;
@@ -57,10 +57,10 @@ public class TestServerBroadband {
     data.put("time", "2023/09/28 22:06:48");
     data.put("state", "virginia");
 
-    Spark.get("broadband", (Route) new BroadbandHandler(new MockedACSAPIBroadbandSource(data)));
-    Spark.get(
-        "broadbandDatasourceError",
-        (Route) new BroadbandHandler(new MockedDatasourceErrorACSAPIBroadbandSource()));
+//    Spark.get("broadband", (Route) new BroadbandHandler(new MockedACSAPIBroadbandSource(data)));
+//    Spark.get(
+//        "broadbandDatasourceError",
+//        (Route) new BroadbandHandler(new MockedDatasourceErrorACSAPIBroadbandSource()));
     Spark.init();
     Spark.awaitInitialization();
 

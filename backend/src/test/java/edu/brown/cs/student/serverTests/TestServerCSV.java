@@ -6,9 +6,9 @@ import static spark.Spark.after;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import edu.brown.cs.student.main.Server.CSVRouteUtility.LoadCSVHandler;
-import edu.brown.cs.student.main.Server.CSVRouteUtility.SearchCSVHandler;
-import edu.brown.cs.student.main.Server.CSVRouteUtility.ViewCSVHandler;
+//import edu.brown.cs.student.main.Server.CSVRouteUtility.LoadCSVHandler;
+//import edu.brown.cs.student.main.Server.CSVRouteUtility.SearchCSVHandler;
+//import edu.brown.cs.student.main.Server.CSVRouteUtility.ViewCSVHandler;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import edu.brown.cs.student.main.Server.Server;
 import java.io.IOException;
@@ -48,9 +48,9 @@ public class TestServerCSV {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    Spark.get("loadcsv", (Route) new LoadCSVHandler());
-    Spark.get("viewcsv", (Route) new ViewCSVHandler());
-    Spark.get("searchcsv", (Route) new SearchCSVHandler());
+//    Spark.get("loadcsv", (Route) new LoadCSVHandler());
+//    Spark.get("viewcsv", (Route) new ViewCSVHandler());
+//    Spark.get("searchcsv", (Route) new SearchCSVHandler());
 
     Server.setFileLoaded(false);
 

@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.Server.BroadbandRouteUtility.ACSAPIBroadbandSource;
-import edu.brown.cs.student.main.Server.BroadbandRouteUtility.BroadbandHandler;
+//import edu.brown.cs.student.main.Server.BroadbandRouteUtility.BroadbandHandler;
 import edu.brown.cs.student.main.Server.BroadbandRouteUtility.CachedACSAPIBroadbandSource;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import java.io.IOException;
@@ -46,11 +46,11 @@ public class TestBroadbandSource {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    Spark.get(
-        "broadband",
-        (Route)
-            new BroadbandHandler(
-                new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
+//    Spark.get(
+//        "broadband",
+//        (Route)
+//            new BroadbandHandler(
+//                new CachedACSAPIBroadbandSource(new ACSAPIBroadbandSource(), 10, 5)));
     Spark.init();
     Spark.awaitInitialization();
 

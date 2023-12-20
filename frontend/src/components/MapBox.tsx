@@ -12,6 +12,7 @@ import { ACCESS_TOKEN } from "../private/api";
 import MapWidget from "./MapWidget";
 import { fetchDataFromBackend } from "./fetch";
 import { Feature, Point } from "geojson";
+import mapboxgl from "mapbox-gl";
 
 interface LatLong {
   lat: number;
@@ -188,107 +189,139 @@ function MapBox() {
     fetchData();
   }, [minLat, maxLat, minLon, maxLon]);
 
-  // useEffect(() => {
-  //   // Implement reverse geocoding logic here based on viewState.latitude and viewState.longitude
-  //   // Set the county and state using setCounty and setState
-  //   if (manualGeocodeClicked) {
-  //     const geocodeCoordinates = async () => {
-  //       try {
-  //         const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${viewState.longitude},${viewState.latitude}.json?access_token=${ACCESS_TOKEN}`;
-  //         const response = await fetch(geocodingUrl);
-  //         let data = await response.json();
-  //         setMedianHousehold(0);
-  //         setMedianFamily(0);
-  //         setPerCapita(0);
-  //         setBroadbandAccess(0);
-  //         if (data.features && data.features.length > 0) {
-  //           const place = data.features[3];
-  //           const county = place.text;
-  //           const state = place.context.find(
-  //             (context: { id: string | string[] }) =>
-  //               context.id.includes("region")
-  //           ).text;
-  //           setCounty(county);
-  //           setState(state);
-  //           curLocation(viewState.latitude, viewState.longitude, false);
-  //           if (county.includes("County")) {
-  //             await broadband([state, county.replace(" County", "")]);
-  //           } else {
-  //             setBroadbandAccess(0);
-  //           }
-
-  //           await load_file(["income/ri_income.csv", "true"]);
-  //           const response = await search(["City/Town", county]);
-  //           let result;
-  //           try {
-  //             result = JSON.stringify(response);
-  //             data = JSON.parse(result);
-  //           } catch (error) {
-  //             data = null;
-  //           }
-  //           const medianHouseholdString = data.data[0][1];
-  //           const medianHousehold = parseFloat(
-  //             medianHouseholdString.replace(/"/g, "")
-  //           );
-  //           const medianFamilyString = data.data[0][2];
-  //           const medianFamily = parseFloat(
-  //             medianFamilyString.replace(/"/g, "")
-  //           );
-  //           const perCapitaString = data.data[0][3];
-  //           const perCapita = parseFloat(perCapitaString.replace(/"/g, ""));
-  //           setMedianHousehold(medianHousehold);
-  //           setMedianFamily(medianFamily);
-  //           setPerCapita(perCapita);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error with reverse geocoding:", error);
-  //       }
-  //     };
-  //     geocodeCoordinates();
-  //     setManualGeocodeClicked(false);
-  //   }
-  // }, [manualGeocodeClicked]);
-
-  const handleSearch = async (searchTerm: string | number | boolean) => {
+  const handleSearch = async (startTerm: string | number | boolean, endTerm: string | number | boolean) => {
     showSearch = true;
     try {
-      const apiUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(
-        searchTerm
-      )}&accessToken=${ACCESS_TOKEN}`;
-      const response = await fetch(apiUrl);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.type === "FeatureCollection") {
-          console.log(data);
-          setSearchOverlay(data);
-        }
-        if (data.features.length > 0) {
-          const firstFeature = data.features[0];
-          const coordinates = firstFeature.center;
+        let startCoordinates, endCoordinates;
 
-          curLocation(coordinates[1], coordinates[0], false);
-
-          // Use mapRef.current.flyTo to access the map instance
-          mapRef.current.flyTo({
-            center: coordinates,
-            zoom: 12,
-          });
-        } else {
-          console.log("Location not found.");
+        // Fetch start coordinates
+        const startUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(startTerm)}&accessToken=${ACCESS_TOKEN}`;
+        const startResponse = await fetch(startUrl);
+        if (startResponse.ok) {
+            const startData = await startResponse.json();
+            if (startData.features.length > 0) {
+                startCoordinates = startData.features[0].center;
+                curLocation(startCoordinates[1], startCoordinates[0], true);
+                mapRef.current.flyTo({
+                    center: startCoordinates,
+                    zoom: 12,
+                });
+            }
         }
-      }
+
+        // Fetch end coordinates
+        const endUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(endTerm)}&accessToken=${ACCESS_TOKEN}`;
+        const endResponse = await fetch(endUrl);
+        if (endResponse.ok) {
+            const endData = await endResponse.json();
+            if (endData.features.length > 0) {
+                endCoordinates = endData.features[0].center;
+                curLocation(endCoordinates[1], endCoordinates[0], true);
+                mapRef.current.flyTo({
+                    center: endCoordinates,
+                    zoom: 12,
+                });
+            }
+        }
+
+        // If both start and end coordinates are available
+        if (startCoordinates && endCoordinates) {
+            const bounds = [
+                [Math.min(startCoordinates[0], endCoordinates[0]), Math.min(startCoordinates[1], endCoordinates[1])],
+                [Math.max(startCoordinates[0], endCoordinates[0]), Math.max(startCoordinates[1], endCoordinates[1])]
+            ];
+            
+            mapRef.current.fitBounds(bounds, {
+                padding: { top: 50, bottom: 50, left: 50, right: 50 }
+            });
+        }
+
     } catch (error) {
-      console.error("Error:", error);
+        console.error("Error:", error);
     }
-  };
+};
 
-  // const handleToggle = (option: string) => {
-  //   if (selectedOptions.includes(option)) {
-  //     setSelectedOptions(selectedOptions.filter((item) => item !== option));
-  //   } else {
-  //     setSelectedOptions([...selectedOptions, option]);
-  //   }
-  // };
+
+//   const handleSearch = async (startTerm: string | number | boolean, endTerm: string | number | boolean) => {
+//     showSearch = true;
+//     try {
+//         // Fetch start coordinates
+//         const startUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(startTerm)}&accessToken=${ACCESS_TOKEN}`;
+//         const startResponse = await fetch(startUrl);
+//         let startCoordinates;
+        
+//         if (startResponse.ok) {
+//             const startData = await startResponse.json();
+//             if (startData.features.length > 0) {
+//                 const startFeature = startData.features[0];
+//                 startCoordinates = startFeature.center;
+                
+//                 curLocation(startCoordinates[1], startCoordinates[0], true);
+
+//                 // Use mapRef.current.flyTo to access the map instance
+//                 mapRef.current.flyTo({
+//                 center: startCoordinates,
+//                 zoom: 12,
+//         });
+//             }
+
+            
+//         }
+        
+//         // Fetch end coordinates
+//         const endUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(endTerm)}&accessToken=${ACCESS_TOKEN}`;
+//         const endResponse = await fetch(endUrl);
+//         let endCoordinates;
+
+//         if (endResponse.ok) {
+//             const endData = await endResponse.json();
+//             if (endData.features.length > 0) {
+//                 const endFeature = endData.features[0];
+//                 endCoordinates = endFeature.center;
+
+//                 curLocation(endCoordinates[1], endCoordinates[0], true);
+
+//                 // Use mapRef.current.flyTo to access the map instance
+//                 mapRef.current.flyTo({
+//                 center: endCoordinates,
+//                 zoom: 12,
+//           });
+//             }
+
+            
+//         }
+
+//         // Calculate midpoint between start and end coordinates
+//     if (startCoordinates && endCoordinates) {
+//       const midLng = (startCoordinates[0] + endCoordinates[0]) / 2;
+//       const midLat = (startCoordinates[1] + endCoordinates[1]) / 2;
+//       const midCoordinates = [midLng, midLat];
+
+//       // Fly to the midpoint with appropriate zoom level
+//       mapRef.current.flyTo({
+//         center: midCoordinates,
+//         zoom: 5,  // Adjust this value as needed for desired zoom level
+//       });
+//     }
+
+
+//         // Adjust map viewport to fit both coordinates
+//         // if (startData && endData) {
+//         //     const bounds = [
+//         //         [startCoordinates[0], startCoordinates[1]],
+//         //         [endCoordinates[0], endCoordinates[1]]
+//         //     ];
+            
+//         //     mapRef.current.fitBounds(bounds, {
+//         //         padding: { top: 50, bottom: 50, left: 50, right: 50 }
+//         //     });
+//         // }
+
+//     } catch (error) {
+//         console.error("Error:", error);
+//     }
+// };
+
 
   function onMapClick(e: MapLayerMouseEvent) {
     const roundToNearest = 0.001; // Set the desired rounding precision
@@ -339,12 +372,10 @@ function MapBox() {
   }
 
   function generateSafestRoute() {
-    handleSearch(startLocation);
+    handleSearch(startLocation, finalDestination);
     setStartLocation("");
     setFinalDestination("");
 
-    // TODO: FINISH LOGIC HERE !!
-    console.log("Generating Safest Route...");
   }
 
   function onMapMove(args: ViewStateChangeEvent) {

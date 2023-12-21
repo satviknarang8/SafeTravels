@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5372af12-3695-4e00-b455-f8ed1a14da83" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/APIClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/APIClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" afterDir="false" />
     </list>
     <list id="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" name="Changes by falakpabari" comment="" />
     <option name="SHOW_DIALOG" value="false" />

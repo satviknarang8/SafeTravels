@@ -6,6 +6,7 @@ import Map, {
   Source,
   ViewStateChangeEvent,
 } from "react-map-gl";
+
 import { geoLayer, locLayer } from "./overlays";
 import { FeatureCollection } from "geojson";
 import { ACCESS_TOKEN } from "../private/api";
@@ -33,6 +34,8 @@ interface SafetyData {
     women: number;
   };
 }
+
+let datetime = new Date();
 
 function MapBox() {
   const ProvidenceLatLong: LatLong = { lat: 41.8268, long: -71.4025 };
@@ -66,6 +69,8 @@ function MapBox() {
   const [hazard, setHazard] = useState<string>("");
   const [clickedHazard, setClickedHazard] = useState<{
     coordinates: number[];
+    date: string;
+    time: string;
     title: string;
   } | null>(null);
 
@@ -221,7 +226,7 @@ function MapBox() {
   };
 
   function onMapClick(e: MapLayerMouseEvent) {
-    const roundToNearest = 0.01; // Set the desired rounding precision
+    const roundToNearest = 0.005; // Set the desired rounding precision
     const clickedCoordinates = [
       Math.round(e.lngLat.lng / roundToNearest) * roundToNearest,
       Math.round(e.lngLat.lat / roundToNearest) * roundToNearest,
@@ -252,8 +257,17 @@ function MapBox() {
         roundedHazardCoordinates[1] === clickedCoordinates[1]
       ) {
         const title = hazardMarker.properties?.title || "";
+        const date =
+          datetime.getMonth() +
+          " " +
+          datetime.getUTCDay() +
+          " " +
+          datetime.getFullYear();
+        const time = datetime.getHours() + ":" + datetime.getMinutes();
         const hazardInformation = {
           coordinates: roundedHazardCoordinates,
+          date: date,
+          time: time,
           title: title,
         };
 
@@ -429,7 +443,7 @@ function MapBox() {
             }}
           >
             <h3>{"Hazard Message:"}</h3>
-            <h3>{clickedHazard.title}</h3>
+            <p>{clickedHazard.title}</p>
           </div>
         )}
         {clickedPin && (
@@ -573,7 +587,7 @@ function MapBox() {
             id={"hazardDropdown"}
             style={{
               position: "absolute",
-              top: "100%", // Adjust the top position to place it below the button
+              top: "100%",
               left: 0,
               backgroundColor: "rgba(255, 255, 255, 0.9)",
               padding: "10px",

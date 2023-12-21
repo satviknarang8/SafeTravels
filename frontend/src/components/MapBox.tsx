@@ -124,9 +124,6 @@ function MapBox() {
     zoom: initialZoom,
   });
 
-  const [overlay, setOverlay] = useState<GeoJSON.FeatureCollection | undefined>(
-    undefined
-  );
   const [hazardMarkers, setHazardMarkers] = useState<FeatureCollection>({
     type: "FeatureCollection",
     features: [],
@@ -151,56 +148,13 @@ function MapBox() {
         type: "FeatureCollection",
         features: [...prevMarkers.features, newHazardMarker],
       }));
-
-      // are we going to use backend here?
-      // Clear the hazard input field
       setHazard("");
 
-      // Hide the hazard dropdown
       setShowHazardDropdown(false);
     }
   };
 
-  const [searchOverlay, setSearchOverlay] = useState<
-    GeoJSON.FeatureCollection | undefined
-  >(undefined);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [minLat, setMinLat] = useState(-90);
-  const [maxLat, setMaxLat] = useState(90);
-  const [minLon, setMinLon] = useState(-180);
-  const [maxLon, setMaxLon] = useState(180);
-
-  const [county, setCounty] = useState("");
-  const [state, setState] = useState("");
-  const [broadbandAccess, setBroadbandAccess] = useState(0);
-  const [medianHousehold, setMedianHousehold] = useState(0);
-  const [medianFamily, setMedianFamily] = useState(0);
-  const [perCapita, setPerCapita] = useState(0);
-
-  const [foundRecordsCount, setFoundRecordsCount] = useState(0);
-
-  const updateFoundRecordsCount = (count: React.SetStateAction<number>) => {
-    setFoundRecordsCount(count);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const apiUrl = `http://localhost:3232/redlining?minLat=${minLat}&maxLat=${maxLat}&minLon=${minLon}&maxLon=${maxLon}`;
-      try {
-        const response = await fetch(apiUrl);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.type === "FeatureCollection") {
-            setOverlay(data);
-            updateFoundRecordsCount(data.features.length);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching redlining data:", error);
-      }
-    };
-    fetchData();
-  }, [minLat, maxLat, minLon, maxLon]);
+  const [safetyPins, setSafetyPins] = useState<SafetyData[]>([]);
 
   const handleSearch = async (
     startTerm: string | number | boolean,
@@ -266,16 +220,8 @@ function MapBox() {
     }
   };
 
-  // const handleToggle = (option: string) => {
-  //   if (selectedOptions.includes(option)) {
-  //     setSelectedOptions(selectedOptions.filter((item) => item !== option));
-  //   } else {
-  //     setSelectedOptions([...selectedOptions, option]);
-  //   }
-  // };
-
   function onMapClick(e: MapLayerMouseEvent) {
-    const roundToNearest = 0.001; // Set the desired rounding precision
+    const roundToNearest = 0.01; // Set the desired rounding precision
     const clickedCoordinates = [
       Math.round(e.lngLat.lng / roundToNearest) * roundToNearest,
       Math.round(e.lngLat.lat / roundToNearest) * roundToNearest,
@@ -317,31 +263,40 @@ function MapBox() {
         return; // Exit the loop after finding a match
       }
     }
+    for (let i = 0; i < safetyPins.length; i++) {
+      const pin = safetyPins[i];
+      const pinCoordinates = pin.geoCode;
 
-    // If no hazard marker matches, proceed with other logic
+      // Round the safety pin coordinates to the nearest 0.001
+      const roundedPinCoordinates = [
+        Math.round(pinCoordinates.longitude / roundToNearest) * roundToNearest,
+        Math.round(pinCoordinates.latitude / roundToNearest) * roundToNearest,
+      ];
+
+      // Compare the rounded coordinates
+      if (
+        roundedPinCoordinates[0] === clickedCoordinates[0] &&
+        roundedPinCoordinates[1] === clickedCoordinates[1]
+      ) {
+        console.log("Safety Pin Clicked:", pin);
+        // Set the safety pin information in the state
+        setClickedHazard(null); // Clear any existing hazard information
+        setClickedPin(pin);
+        return; // Exit the loop after finding a match
+      }
+    }
+
+    // If no hazard marker or safety pin matches, proceed with other logic
     curLocation(e.lngLat.lat, e.lngLat.lng, true);
     setClickedHazard(null);
-
-    // Find the clicked neighborhood based on coordinates
-    const clickedNeighborhood = safetyData.find(
-      (neighborhood) =>
-        neighborhood.geoCode.latitude === clickedCoordinates[1] &&
-        neighborhood.geoCode.longitude === clickedCoordinates[0]
-    );
-
-    // Set the clicked neighborhood in the state
-    setClickedPin(clickedNeighborhood || null);
-    setClickedHazard(null); // Clear any existing hazard information
-
-    // Additional logic based on clickedCoordinates and clickedNeighborhood
-    console.log("Clicked Coordinates:", clickedCoordinates);
-    console.log("Clicked Neighborhood:", clickedNeighborhood);
+    setClickedPin(null);
   }
 
   function generateSafestRoute() {
     handleSearch(startLocation, finalDestination);
     setStartLocation("");
     setFinalDestination("");
+    fetchSafetyData();
   }
 
   function onMapMove(args: ViewStateChangeEvent) {
@@ -351,58 +306,33 @@ function MapBox() {
 
   const [safetyData, setSafetyData] = useState<SafetyData[]>([]);
 
-  useEffect(() => {
-    // Fetch safety data from the backend API
-    const fetchSafetyData = async () => {
-      const safetyUrl = `http://localhost:3232/safestroute?start=${startLocation}&end=${finalDestination}`;
-      try {
-        const response = await fetch(safetyUrl);
-        console.log("haaaa");
-        if (response.ok) {
-          const data = await response.json();
-          console.log("data shape 1:");
+  // Fetch safety data from the backend API
+  const fetchSafetyData = async () => {
+    const encodedStartLocation = encodeURIComponent(startLocation);
+    const encodedFinalDestination = encodeURIComponent(finalDestination);
+
+    const safetyUrl = `http://localhost:3232/safestroute?start=${encodedStartLocation}&end=${encodedFinalDestination}`;
+    console.log("URL:" + safetyUrl);
+    try {
+      const response = await fetch(safetyUrl);
+      console.log("haaaa");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("data shape 1:");
+        console.log(data.data);
+        console.log(data);
+        if (data.data) {
+          console.log("data shape 2:");
           console.log(data.data);
-          if (data.data) {
-            console.log("data shape 2:");
-            console.log(data.data);
-            setSafetyData(data.data);
-          }
+          setSafetyData(data.data.data);
+          setSafetyPins(data.data.data);
+          console.log("safetypins:" + safetyPins);
         }
-      } catch (error) {
-        console.error("Error fetching safety data:", error);
       }
-    };
-
-    fetchSafetyData();
-  }, [startLocation, finalDestination]);
-
-  function handlePinClick(neighborhood: SafetyData): void {
-    const popupContent = (
-      <div>
-        <h3>{neighborhood.name}</h3>
-        <p>LGBTQ Score: {neighborhood.safetyScores.lgbtq}</p>
-        <p>Medical Score: {neighborhood.safetyScores.medical}</p>
-        <p>Overall Score: {neighborhood.safetyScores.overall}</p>
-        <p>Physical Harm Score: {neighborhood.safetyScores.physicalHarm}</p>
-        <p>
-          Political Freedom Score: {neighborhood.safetyScores.politicalFreedom}
-        </p>
-        <p>Theft Score: {neighborhood.safetyScores.theft}</p>
-        <p>Women's Safety Score: {neighborhood.safetyScores.women}</p>
-      </div>
-    );
-
-    // Set the popup content in the state to display on the map
-    setPopup(
-      <Popup
-        latitude={neighborhood.geoCode.latitude}
-        longitude={neighborhood.geoCode.longitude}
-        onClose={() => setPopup(null)}
-      >
-        {popupContent}
-      </Popup>
-    );
-  }
+    } catch (error) {
+      console.error("Error fetching safety data:", error);
+    }
+  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -411,27 +341,58 @@ function MapBox() {
         {...viewState}
         onMove={(ev) => onMapMove(ev)}
         style={{ width: window.innerWidth, height: window.innerHeight }}
-        mapStyle={"mapbox://styles/mapbox/streets-v12"}
+        mapStyle={"mapbox://styles/mapbox/bright-v9"}
         onClick={(ev: MapLayerMouseEvent) => onMapClick(ev)}
         ref={mapRef}
       >
-        {selectedOptions.includes("Redlining") && (
-          <Source id="geo_data" type="geojson" data={overlay}>
-            <Layer {...geoLayer} />
-          </Source>
-        )}
-        {showSearch && (
-          <Source id="loc_data" type="geojson" data={searchOverlay}>
-            <Layer {...locLayer} />
-          </Source>
-        )}
         <Source id="hazard_markers" type="geojson" data={hazardMarkers}>
           <Layer
             type="symbol"
             id="hazard_markers_layer"
             layout={{
-              "icon-image": "marker",
-              "icon-size": currentZoom >= 12 ? 8 : 0.8,
+              "icon-image": "marker-11",
+              "icon-size": {
+                stops: [
+                  [12, 1],
+                  [16, 8],
+                ], // Adjust size based on zoom level
+              },
+            }}
+          />
+        </Source>
+        <Source
+          id="safety_pins"
+          type="geojson"
+          data={{
+            type: "FeatureCollection",
+            features: safetyData.map((neighborhood) => ({
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [
+                  neighborhood.geoCode.longitude,
+                  neighborhood.geoCode.latitude,
+                ],
+              },
+              properties: {
+                title: neighborhood.name,
+                description: neighborhood.name,
+                subType: neighborhood.safetyScores.overall.toString(),
+              },
+            })),
+          }}
+        >
+          <Layer
+            type="symbol"
+            id="safety_pins_layer"
+            layout={{
+              "icon-image": "information-11", // Add your safety pin icon image
+              "icon-size": {
+                stops: [
+                  [12, 1],
+                  [16, 12],
+                ], // Adjust size based on zoom level
+              },
             }}
           />
         </Source>
@@ -469,6 +430,34 @@ function MapBox() {
           >
             <h3>{"Hazard Message:"}</h3>
             <h3>{clickedHazard.title}</h3>
+          </div>
+        )}
+        {clickedPin && (
+          <div
+            className="map-popup"
+            style={{
+              position: "absolute",
+              top: "250px",
+              left: "750px",
+              zIndex: 1,
+              pointerEvents: "none",
+              backgroundColor: "white",
+              opacity: 0.6,
+              color: "blue", // Change the color as needed
+            }}
+          >
+            <h3>{"Safety Pin Information:"}</h3>
+            <h3>{clickedPin.name}</h3>
+            <p>LGBTQ Score: {clickedPin.safetyScores.lgbtq}</p>
+            <p>Medical Score: {clickedPin.safetyScores.medical}</p>
+            <p>Overall Score: {clickedPin.safetyScores.overall}</p>
+            <p>Physical Harm Score: {clickedPin.safetyScores.physicalHarm}</p>
+            <p>
+              Political Freedom Score:{" "}
+              {clickedPin.safetyScores.politicalFreedom}
+            </p>
+            <p>Theft Score: {clickedPin.safetyScores.theft}</p>
+            <p>Women's Safety Score: {clickedPin.safetyScores.women}</p>
           </div>
         )}
       </Map>
@@ -562,7 +551,7 @@ function MapBox() {
             cursor: "pointer",
           }}
         >
-          Generate Safest Route
+          Generate Neighborhood Information
         </button>
         <p></p>
         <button
@@ -658,40 +647,6 @@ function MapBox() {
             <p>Route 3</p>
           </div>
         )}
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px", // Adjust the left position to create space between the input fields and the MapWidget
-          backgroundColor: "white",
-          padding: "10px",
-          boxShadow: "0 0 5px rgba(0, 0, 0, 0.3)",
-          borderRadius: "5px",
-        }}
-      >
-        {/* <MapWidget
-          onSearch={handleSearch}
-          onToggle={handleToggle}
-          selectedOptions={selectedOptions}
-          onFilterChange={(minLat, maxLat, minLon, maxLon) => {
-            setMinLat(minLat);
-            setMaxLat(maxLat);
-            setMinLon(minLon);
-            setMaxLon(maxLon);
-          }}
-          foundRecordsCount={foundRecordsCount}
-          latitude={viewState.latitude}
-          longitude={viewState.longitude}
-          county={county}
-          state={state}
-          broadbandAccess={broadbandAccess}
-          medianHousehold={medianHousehold}
-          medianFamily={medianFamily}
-          perCapita={perCapita}
-          onManualGeocodeClick={() => setManualGeocodeClicked(true)}
-        /> */}
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ public class APIClientTest {
   public void testSuccessfulApiCall() throws Exception {
     String sampleResponse = "{\"data\": [{\"safetyScores\": {\"overall\": 45}}]}";
 
-    Map<String, Object> result = client.getSafetyRatings(41.397158, 2.160873, 2.0);
+    Map<String, Object> result = client.getSafetyRatings(41.397158, 2.160873, 2);
     assertNotNull(result);
     assertTrue(result.containsKey("data"));
     // Additional assertions to check the structure and values of the response

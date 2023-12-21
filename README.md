@@ -103,6 +103,7 @@ Then, navigate to the frontend directory, and run npm run dev. Then, navigate to
 ### API Links
 
 Amadeus Safe Place: https://developers.amadeus.com/self-service/category/covid-19-and-travel-safety/api-doc/safe-place
+
 Google Maps, Geocoder API: https://developers.google.com/maps/documentation/geocoding/overview
 MapBox API: https://www.mapbox.com/
 

@@ -68,6 +68,7 @@ In the current version, there are no known errors or bugs present in SafeTravels
 ## Backend Tests
 
 ## TestLoginManager
+
 This test suite focuses on the functionalities of the LoginManager class in the server. It employs the Mockito framework to simulate requests and verify the responses of the login and registration processes. Key test cases include:
 
 Successful login with valid credentials.
@@ -76,6 +77,7 @@ Handling of registration processes, including the detection of existing username
 By executing these tests, developers can ensure the robustness and correctness of the authentication mechanisms provided by the LoginManager.
 
 ## APIClientTest
+
 The APIClientTest suite evaluates the functionalities of the APIClient class responsible for fetching geocode coordinates and safety ratings. This suite uses mocked HTTP connections to simulate various scenarios, such as:
 
 Retrieving valid coordinates for known addresses.
@@ -97,6 +99,12 @@ Furthermore, we test the visibility of the hazard dropdown upon clicking the "Re
 
 To utilize the project, first run the server in the backend. This can be done by running the Server class in the Server directory.
 Then, navigate to the frontend directory, and run npm run dev. Then, navigate to localhost:5173. This should bring up the login screen of SafeTravels -- from there, make an account, and sign in!
+
+### API Links
+
+Amadeus Safe Place: https://developers.amadeus.com/self-service/category/covid-19-and-travel-safety/api-doc/safe-place
+Google Maps, Geocoder API:
+MapBox API: https://www.mapbox.com/
 
 ## How To Run Tests
 

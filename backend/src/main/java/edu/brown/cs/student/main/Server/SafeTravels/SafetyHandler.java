@@ -55,11 +55,12 @@ public class SafetyHandler implements Route {
       List<Double> midpoint = calculateMidpoint(startCoordinates.get(0), startCoordinates.get(1), endCoordinates.get(0), endCoordinates.get(1));
 
 // Calculate radius
-      int radius = (int) max(distance(midpoint.get(0), midpoint.get(1), startCoordinates.get(0), startCoordinates.get(1)),
+      int radius = (int)max(distance(midpoint.get(0), midpoint.get(1), startCoordinates.get(0), startCoordinates.get(1)),
           distance(midpoint.get(0), midpoint.get(1), endCoordinates.get(0), endCoordinates.get(1)));
 
 // Use the midpoint and radius for the Amadeus API call
-      safetyRatings = client.getSafetyRatings(midpoint.get(0), midpoint.get(1), radius);
+      //safetyRatings = client.getSafetyRatings(midpoint.get(0), midpoint.get(1), radius);
+      safetyRatings = client.getSafetyRatings(midpoint.get(0), midpoint.get(1), 2);
 
     } catch (DatasourceException e) {
       responseMap.put("type", "error");

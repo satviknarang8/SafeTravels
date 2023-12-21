@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5372af12-3695-4e00-b455-f8ed1a14da83" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Maps/MapBoxHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Maps/MapBoxHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/APIClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/APIClientTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" afterDir="false" />
     </list>
     <list id="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" name="Changes by falakpabari" comment="" />
@@ -43,6 +44,8 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Server.executor": "Run",
+    "JUnit.APIClientTest.executor": "Run",
+    "JUnit.APIClientTest.testSuccessfulApiCall.executor": "Run",
     "JUnit.GeocodingAPIClientTest.executor": "Run",
     "JUnit.GeocodingAPIClientTest.testGetCoordinates.executor": "Run",
     "OverrideImplement.generate.javadoc": "true",
@@ -128,9 +131,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server" />
-        <item itemvalue="JUnit.GeocodingAPIClientTest" />
-        <item itemvalue="JUnit.GeocodingAPIClientTest.testGetCoordinates" />
-        <item itemvalue="JUnit.GeocodingAPIClientTest.testSuccessfulApiCall" />
+        <item itemvalue="JUnit.APIClientTest.testSuccessfulApiCall" />
+        <item itemvalue="JUnit.APIClientTest" />
       </list>
     </recent_temporary>
   </component>
@@ -154,7 +156,8 @@
       <workItem from="1702155467149" duration="23000" />
       <workItem from="1702155537965" duration="8878000" />
       <workItem from="1703013056170" duration="884000" />
-      <workItem from="1703015995336" duration="26729000" />
+      <workItem from="1703015995336" duration="29999000" />
+      <workItem from="1703131147585" duration="5811000" />
     </task>
     <servers />
   </component>
@@ -174,5 +177,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/APIClient.java</url>
+          <line>144</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

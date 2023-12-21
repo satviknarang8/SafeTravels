@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Popup } from "react-map-gl";
+import { Marker, Popup } from "react-map-gl";
 import Map, {
   Layer,
   MapLayerMouseEvent,
@@ -9,8 +9,6 @@ import Map, {
 import { geoLayer, locLayer } from "./overlays";
 import { FeatureCollection } from "geojson";
 import { ACCESS_TOKEN } from "../private/api";
-import MapWidget from "./MapWidget";
-import { fetchDataFromBackend } from "./fetch";
 import { Feature, Point } from "geojson";
 
 interface LatLong {
@@ -47,6 +45,7 @@ function MapBox() {
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [showHazardDropdown, setShowHazardDropdown] = useState(false);
+  const [clickedPin, setClickedPin] = useState<SafetyData | null>(null);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -165,9 +164,6 @@ function MapBox() {
   const [searchOverlay, setSearchOverlay] = useState<
     GeoJSON.FeatureCollection | undefined
   >(undefined);
-
-  const [manualGeocodeClicked, setManualGeocodeClicked] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [minLat, setMinLat] = useState(-90);
   const [maxLat, setMaxLat] = useState(90);
@@ -317,6 +313,7 @@ function MapBox() {
 
         // Set the hazard information in the state
         setClickedHazard(hazardInformation);
+        setPopup(null); // Clear any existing popup when a hazard is clicked
         return; // Exit the loop after finding a match
       }
     }
@@ -324,6 +321,21 @@ function MapBox() {
     // If no hazard marker matches, proceed with other logic
     curLocation(e.lngLat.lat, e.lngLat.lng, true);
     setClickedHazard(null);
+
+    // Find the clicked neighborhood based on coordinates
+    const clickedNeighborhood = safetyData.find(
+      (neighborhood) =>
+        neighborhood.geoCode.latitude === clickedCoordinates[1] &&
+        neighborhood.geoCode.longitude === clickedCoordinates[0]
+    );
+
+    // Set the clicked neighborhood in the state
+    setClickedPin(clickedNeighborhood || null);
+    setClickedHazard(null); // Clear any existing hazard information
+
+    // Additional logic based on clickedCoordinates and clickedNeighborhood
+    console.log("Clicked Coordinates:", clickedCoordinates);
+    console.log("Clicked Neighborhood:", clickedNeighborhood);
   }
 
   function generateSafestRoute() {
@@ -335,6 +347,61 @@ function MapBox() {
   function onMapMove(args: ViewStateChangeEvent) {
     setViewState(args.viewState);
     setCurrentZoom(args.viewState.zoom);
+  }
+
+  const [safetyData, setSafetyData] = useState<SafetyData[]>([]);
+
+  useEffect(() => {
+    // Fetch safety data from the backend API
+    const fetchSafetyData = async () => {
+      const safetyUrl = `http://localhost:3232/safestroute?start=${startLocation}&end=${finalDestination}`;
+      try {
+        const response = await fetch(safetyUrl);
+        console.log("haaaa");
+        if (response.ok) {
+          const data = await response.json();
+          console.log("data shape 1:");
+          console.log(data.data);
+          if (data.data) {
+            console.log("data shape 2:");
+            console.log(data.data);
+            setSafetyData(data.data);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching safety data:", error);
+      }
+    };
+
+    fetchSafetyData();
+  }, [startLocation, finalDestination]);
+
+  function handlePinClick(neighborhood: SafetyData): void {
+    const popupContent = (
+      <div>
+        <h3>{neighborhood.name}</h3>
+        <p>LGBTQ Score: {neighborhood.safetyScores.lgbtq}</p>
+        <p>Medical Score: {neighborhood.safetyScores.medical}</p>
+        <p>Overall Score: {neighborhood.safetyScores.overall}</p>
+        <p>Physical Harm Score: {neighborhood.safetyScores.physicalHarm}</p>
+        <p>
+          Political Freedom Score: {neighborhood.safetyScores.politicalFreedom}
+        </p>
+        <p>Theft Score: {neighborhood.safetyScores.theft}</p>
+        <p>Women's Safety Score: {neighborhood.safetyScores.women}</p>
+      </div>
+    );
+
+    // Set the popup content in the state to display on the map
+    setPopup(
+      <Popup
+        latitude={neighborhood.geoCode.latitude}
+        longitude={neighborhood.geoCode.longitude}
+        onClose={() => setPopup(null)}
+      >
+        {popupContent}
+      </Popup>
+    );
   }
 
   return (

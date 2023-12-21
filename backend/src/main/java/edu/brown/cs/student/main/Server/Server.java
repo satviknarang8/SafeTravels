@@ -5,7 +5,6 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.Server.Exceptions.DatasourceException;
 import edu.brown.cs.student.main.Server.LoginHandler.LoginManager;
 import edu.brown.cs.student.main.Server.Maps.MapBoxHandler;
-import edu.brown.cs.student.main.Server.Maps.RedliningHandler;
 import edu.brown.cs.student.main.Server.SafeTravels.SafetyHandler;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,8 +95,7 @@ public class Server {
           response.header("Access-Control-Allow-Origin", "*");
           response.header("Access-Control-Allow-Methods", "*");
         });
-
-    Spark.get("redlining", new RedliningHandler());
+        
     Spark.get("mapbox", new MapBoxHandler());
     Spark.get("login", new LoginManager());
     Spark.get("register", new LoginManager());

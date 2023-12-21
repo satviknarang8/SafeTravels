@@ -6,35 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5372af12-3695-4e00-b455-f8ed1a14da83" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/BroadbandRouteUtility/BroadbandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/BroadbandRouteUtility/BroadbandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/CSVRouteUtility/CSVResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/CSVRouteUtility/LoadCSVHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/CSVRouteUtility/SearchCSVHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/CSVRouteUtility/ViewCSVHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/GeocodingAPIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/APIClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/SafeTravels/SafetyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Creator/CreatorFromRow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Creator/FactoryFailureException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Creator/defaultSearchCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/FileUtility/csvFileUtility.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Parser/ParserException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Parser/csvParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Stars/Star.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/csv/Stars/StarCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/csvTests/FileUtilityTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/csvTests/ParserTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/GeocodingAPIClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/geocodetests/APIClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/serverTests/TestBroadbandSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/serverTests/TestBroadbandSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/serverTests/TestServerBroadband.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/serverTests/TestServerBroadband.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/serverTests/TestServerCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/brown/cs/student/serverTests/TestServerCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Maps/MapBoxHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Maps/MapBoxHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/MapBox.tsx" afterDir="false" />
     </list>
-    <list id="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" name="Changes by falakpabari" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java" afterDir="false" />
-    </list>
+    <list id="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" name="Changes by falakpabari" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,17 +24,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/edu/brown/cs/student/main/Server/Server.java">
-      <ranges>
-        <range start1="4" end1="10" start2="4" end2="7" changelist="5372af12-3695-4e00-b455-f8ed1a14da83" />
-        <range start1="15" end1="16" start2="12" end2="12" changelist="5372af12-3695-4e00-b455-f8ed1a14da83" />
-        <range start1="24" end1="27" start2="20" end2="20" changelist="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" />
-        <range start1="61" end1="79" start2="54" end2="54" changelist="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" />
-        <range start1="127" end1="130" start2="102" end2="102" changelist="5ffd61bf-d885-434b-8c63-5c8b0193e1ed" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -100,7 +64,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.GeocodingAPIClientTest">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.brown.cs.student.main.Server.Server" />
       <module name="s0" />
@@ -163,9 +127,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.GeocodingAPIClientTest" />
         <item itemvalue="JUnit.GeocodingAPIClientTest.testGetCoordinates" />
-        <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.GeocodingAPIClientTest.testSuccessfulApiCall" />
       </list>
     </recent_temporary>
@@ -190,7 +154,7 @@
       <workItem from="1702155467149" duration="23000" />
       <workItem from="1702155537965" duration="8878000" />
       <workItem from="1703013056170" duration="884000" />
-      <workItem from="1703015995336" duration="14654000" />
+      <workItem from="1703015995336" duration="26729000" />
     </task>
     <servers />
   </component>

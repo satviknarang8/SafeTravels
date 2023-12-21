@@ -12,11 +12,28 @@ import { ACCESS_TOKEN } from "../private/api";
 import MapWidget from "./MapWidget";
 import { fetchDataFromBackend } from "./fetch";
 import { Feature, Point } from "geojson";
-import mapboxgl from "mapbox-gl";
 
 interface LatLong {
   lat: number;
   long: number;
+}
+
+interface SafetyData {
+  id: string;
+  name: string;
+  geoCode: {
+    latitude: number;
+    longitude: number;
+  };
+  safetyScores: {
+    lgbtq: number;
+    medical: number;
+    overall: number;
+    physicalHarm: number;
+    politicalFreedom: number;
+    theft: number;
+    women: number;
+  };
 }
 
 function MapBox() {
@@ -189,139 +206,77 @@ function MapBox() {
     fetchData();
   }, [minLat, maxLat, minLon, maxLon]);
 
-  const handleSearch = async (startTerm: string | number | boolean, endTerm: string | number | boolean) => {
+  const handleSearch = async (
+    startTerm: string | number | boolean,
+    endTerm: string | number | boolean
+  ) => {
     showSearch = true;
     try {
-        let startCoordinates, endCoordinates;
+      let startCoordinates, endCoordinates;
 
-        // Fetch start coordinates
-        const startUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(startTerm)}&accessToken=${ACCESS_TOKEN}`;
-        const startResponse = await fetch(startUrl);
-        if (startResponse.ok) {
-            const startData = await startResponse.json();
-            if (startData.features.length > 0) {
-                startCoordinates = startData.features[0].center;
-                curLocation(startCoordinates[1], startCoordinates[0], true);
-                mapRef.current.flyTo({
-                    center: startCoordinates,
-                    zoom: 12,
-                });
-            }
+      // Fetch start coordinates
+      const startUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(
+        startTerm
+      )}&accessToken=${ACCESS_TOKEN}`;
+      const startResponse = await fetch(startUrl);
+      if (startResponse.ok) {
+        const startData = await startResponse.json();
+        if (startData.features.length > 0) {
+          startCoordinates = startData.features[0].center;
+          curLocation(startCoordinates[1], startCoordinates[0], true);
+          mapRef.current.flyTo({
+            center: startCoordinates,
+            zoom: 12,
+          });
         }
+      }
 
-        // Fetch end coordinates
-        const endUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(endTerm)}&accessToken=${ACCESS_TOKEN}`;
-        const endResponse = await fetch(endUrl);
-        if (endResponse.ok) {
-            const endData = await endResponse.json();
-            if (endData.features.length > 0) {
-                endCoordinates = endData.features[0].center;
-                curLocation(endCoordinates[1], endCoordinates[0], true);
-                mapRef.current.flyTo({
-                    center: endCoordinates,
-                    zoom: 12,
-                });
-            }
+      // Fetch end coordinates
+      const endUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(
+        endTerm
+      )}&accessToken=${ACCESS_TOKEN}`;
+      const endResponse = await fetch(endUrl);
+      if (endResponse.ok) {
+        const endData = await endResponse.json();
+        if (endData.features.length > 0) {
+          endCoordinates = endData.features[0].center;
+          curLocation(endCoordinates[1], endCoordinates[0], true);
+          mapRef.current.flyTo({
+            center: endCoordinates,
+            zoom: 12,
+          });
         }
+      }
 
-        // If both start and end coordinates are available
-        if (startCoordinates && endCoordinates) {
-            const bounds = [
-                [Math.min(startCoordinates[0], endCoordinates[0]), Math.min(startCoordinates[1], endCoordinates[1])],
-                [Math.max(startCoordinates[0], endCoordinates[0]), Math.max(startCoordinates[1], endCoordinates[1])]
-            ];
-            
-            mapRef.current.fitBounds(bounds, {
-                padding: { top: 50, bottom: 50, left: 50, right: 50 }
-            });
-        }
+      // If both start and end coordinates are available
+      if (startCoordinates && endCoordinates) {
+        const bounds = [
+          [
+            Math.min(startCoordinates[0], endCoordinates[0]),
+            Math.min(startCoordinates[1], endCoordinates[1]),
+          ],
+          [
+            Math.max(startCoordinates[0], endCoordinates[0]),
+            Math.max(startCoordinates[1], endCoordinates[1]),
+          ],
+        ];
 
+        mapRef.current.fitBounds(bounds, {
+          padding: { top: 50, bottom: 50, left: 50, right: 50 },
+        });
+      }
     } catch (error) {
-        console.error("Error:", error);
+      console.error("Error:", error);
     }
-};
+  };
 
-
-//   const handleSearch = async (startTerm: string | number | boolean, endTerm: string | number | boolean) => {
-//     showSearch = true;
-//     try {
-//         // Fetch start coordinates
-//         const startUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(startTerm)}&accessToken=${ACCESS_TOKEN}`;
-//         const startResponse = await fetch(startUrl);
-//         let startCoordinates;
-        
-//         if (startResponse.ok) {
-//             const startData = await startResponse.json();
-//             if (startData.features.length > 0) {
-//                 const startFeature = startData.features[0];
-//                 startCoordinates = startFeature.center;
-                
-//                 curLocation(startCoordinates[1], startCoordinates[0], true);
-
-//                 // Use mapRef.current.flyTo to access the map instance
-//                 mapRef.current.flyTo({
-//                 center: startCoordinates,
-//                 zoom: 12,
-//         });
-//             }
-
-            
-//         }
-        
-//         // Fetch end coordinates
-//         const endUrl = `http://localhost:3232/mapbox?place=${encodeURIComponent(endTerm)}&accessToken=${ACCESS_TOKEN}`;
-//         const endResponse = await fetch(endUrl);
-//         let endCoordinates;
-
-//         if (endResponse.ok) {
-//             const endData = await endResponse.json();
-//             if (endData.features.length > 0) {
-//                 const endFeature = endData.features[0];
-//                 endCoordinates = endFeature.center;
-
-//                 curLocation(endCoordinates[1], endCoordinates[0], true);
-
-//                 // Use mapRef.current.flyTo to access the map instance
-//                 mapRef.current.flyTo({
-//                 center: endCoordinates,
-//                 zoom: 12,
-//           });
-//             }
-
-            
-//         }
-
-//         // Calculate midpoint between start and end coordinates
-//     if (startCoordinates && endCoordinates) {
-//       const midLng = (startCoordinates[0] + endCoordinates[0]) / 2;
-//       const midLat = (startCoordinates[1] + endCoordinates[1]) / 2;
-//       const midCoordinates = [midLng, midLat];
-
-//       // Fly to the midpoint with appropriate zoom level
-//       mapRef.current.flyTo({
-//         center: midCoordinates,
-//         zoom: 5,  // Adjust this value as needed for desired zoom level
-//       });
-//     }
-
-
-//         // Adjust map viewport to fit both coordinates
-//         // if (startData && endData) {
-//         //     const bounds = [
-//         //         [startCoordinates[0], startCoordinates[1]],
-//         //         [endCoordinates[0], endCoordinates[1]]
-//         //     ];
-            
-//         //     mapRef.current.fitBounds(bounds, {
-//         //         padding: { top: 50, bottom: 50, left: 50, right: 50 }
-//         //     });
-//         // }
-
-//     } catch (error) {
-//         console.error("Error:", error);
-//     }
-// };
-
+  // const handleToggle = (option: string) => {
+  //   if (selectedOptions.includes(option)) {
+  //     setSelectedOptions(selectedOptions.filter((item) => item !== option));
+  //   } else {
+  //     setSelectedOptions([...selectedOptions, option]);
+  //   }
+  // };
 
   function onMapClick(e: MapLayerMouseEvent) {
     const roundToNearest = 0.001; // Set the desired rounding precision
@@ -375,7 +330,6 @@ function MapBox() {
     handleSearch(startLocation, finalDestination);
     setStartLocation("");
     setFinalDestination("");
-
   }
 
   function onMapMove(args: ViewStateChangeEvent) {

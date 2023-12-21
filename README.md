@@ -17,10 +17,9 @@ This project had four contributors: Sofyan Squali-Houssaini(ssquali1), Yash Koth
 ##### Contribution Details
 
 - Sofyan: complete functionality of reporting system, complete functionality of login interface/logic, display and interaction with neighborhood safety data, integration tests, front-end documentation.
-- Yash:
-- Satvik:
-- Falak:
-<!-- TODO -->
+- Yash: Worked extensively on back-end handler and api connection, as well as partially on login handler and adding error handling there, wrote unit tests for backend functionality, wrote integration test for frontend functionality
+- Satvik: Worked on setting up endpoints and handlers for our API as well as the API client. Helped connect backend to frontend by fetching safety data. Worked on algorithm for calculating and passing in safety data radius for Amadeus API call. Worked on backend documentation.
+- Falak: complete mapbox handlesearch functionality & MapBoxHandler integration in backend, fetched safety data from backend to frontend, integration frontend tests, mock data, ldocumentation and commenting.
 
 # Project Details: Structure, Design, and Implementation
 
@@ -28,7 +27,13 @@ Within this section will be the summary, explanations, and justifications for th
 
 ### Backend (Server)
 
-<!-- TODO -->
+In the backend, the Server class contains the main() method, which starts Spark and runs the handlers: MapBoxHandler, LoginManager, and SafetyHandler.
+
+The Safety takes in the start and end points for the route and call on an instance of the API client to make a call to first convert the addresses to geocodes using the Google Geocoding API and then getting the relevant safety data using the Amadeus Safe Place API.
+
+The LoginManager handles both the login and register endpoints. It takes in a username and password and stores it or checks against a map that holds this data.
+
+The MapBoxHandler takes in a place and a token to allow for the map in the frontend to be set up correctly. It is also responsible for geocoding.
 
 ### Frontend (Client)
 
@@ -60,9 +65,23 @@ In the current version, there are no known errors or bugs present in SafeTravels
 
 # Test Suite Summary
 
-## Server (Backend) Tests
+## Backend Tests
 
-<!-- TODO -->
+## TestLoginManager
+This test suite focuses on the functionalities of the LoginManager class in the server. It employs the Mockito framework to simulate requests and verify the responses of the login and registration processes. Key test cases include:
+
+Successful login with valid credentials.
+Handling of incorrect login credentials.
+Handling of registration processes, including the detection of existing usernames.
+By executing these tests, developers can ensure the robustness and correctness of the authentication mechanisms provided by the LoginManager.
+
+## APIClientTest
+The APIClientTest suite evaluates the functionalities of the APIClient class responsible for fetching geocode coordinates and safety ratings. This suite uses mocked HTTP connections to simulate various scenarios, such as:
+
+Retrieving valid coordinates for known addresses.
+Handling exceptions for incorrect addresses.
+Verifying the structure and content of the safety ratings data returned.
+This suite ensures that the API client behaves as expected, correctly fetching and processing data from external sources, and handling potential errors gracefully.
 
 ## Client (Frontend) Tests
 
@@ -74,8 +93,6 @@ Furthermore, we test the visibility of the hazard dropdown upon clicking the "Re
 
 # How To Get Started
 
-<!-- TODO -->
-
 ## User Guide
 
 To utilize the project, first run the server in the backend. This can be done by running the Server class in the Server directory.
@@ -84,6 +101,4 @@ Then, navigate to the frontend directory, and run npm run dev. Then, navigate to
 ## How To Run Tests
 
 FRONT-END: Navigate to the front-end directory and run "npx playwright test".
-BACK-END:
-
-<!-- TODO -->
+BACK-END: Press run on the inidvidual test files

@@ -52,6 +52,13 @@ public class APIClient {
       throw new DatasourceException(e.getMessage());
     }
   }
+
+  /**
+   * Fetches the coordinates of a given address.
+   * @param address the address to geocode
+   * @return List containing latitude and longitude
+   * @throws DatasourceException if there's an issue with the datasource or parsing
+   */
   public List<Double> getCoordinates(String address) throws DatasourceException {
     try {
       String encoded = URLEncoder.encode(address, "UTF-8");
@@ -90,6 +97,16 @@ public class APIClient {
       throw new DatasourceException(e.getMessage());
     }
   }
+
+  /**
+   * Retrieves safety ratings for a specific location within a given radius.
+   *
+   * @param lat     The latitude of the location.
+   * @param lon     The longitude of the location.
+   * @param radius  The radius within which to fetch safety ratings.
+   * @return        A map containing safety ratings and related information for the given location.
+   * @throws DatasourceException If there's an issue with the datasource or while fetching the safety ratings.
+   */
   public Map<String, Object> getSafetyRatings(double lat, double lon, int radius) throws DatasourceException {
     try {
       // Step 1: Get a new access token

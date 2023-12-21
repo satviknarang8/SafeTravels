@@ -16,4 +16,4 @@ backend/.mvn
 backend/.mvn-classpath
 backend/pom.xml.bak
 
-backend/src/main/java/edu/brown/cs/student/main/Private
+backend/src/main/java/edu/brown/cs/student/main/Private/

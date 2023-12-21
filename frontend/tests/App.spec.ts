@@ -31,21 +31,15 @@ test("on page load, the register form is rendered", async ({ page }) => {
   await expect(page.locator("#registerButton")).toBeVisible();
 });
 
-test("after entering valid login credentials and clicking Login, the user should be redirected", async ({
-  page,
-}) => {
+test("after entering valid login credentials and clicking Login, the user should be redirected", async ({ page }) => {
   await page.goto("http://localhost:5173/");
-
-  // Enter valid login credentials
   await page.fill("#loginUsername", "test1");
   await page.fill("#loginPassword", "test1");
-
-  // Click the Login button
   await page.click("#loginButton");
 
-  // Check if the user is redirected (modify this based on your actual redirection logic)
+  // Assuming redirection logic waits for a while before redirecting.
+  await page.waitForTimeout(2000); // Wait for 2 seconds
 
-  // You might want to assert some condition on the redirected page
   await expect(page.locator("#generateSafest")).toBeVisible();
 });
 
@@ -134,4 +128,31 @@ test("when 'Access Previously Viewed Routes' button is clicked, the dropdown sho
   await expect(page.locator("#previouslyViewedRoutesDropdown")).toBeVisible();
 });
 
-// add not visible expects.
+test("on page load, the hazard reporting form is not visible", async ({ page }) => {
+  await page.goto("http://localhost:5173/");
+  await expect(page.locator("#reportHazardForm")).not.toBeVisible();
+});
+
+test("on page load, the access routes dropdown is not visible", async ({ page }) => {
+  await page.goto("http://localhost:5173/");
+  await expect(page.locator("#accessRoutesDropdown")).not.toBeVisible();
+});
+
+test.describe('SafetyHandler Integration Tests', () => {
+
+      test('successful safety rating request', async ({ request }) => {
+          // Define the API endpoint with query parameters
+          const endpoint = 'http://localhost:3232/safestroute?start=867%20Fenimore%20Road%2C%20NY&end=1%20E%20161%20St%2C%20Bronx%2C%20NY%2010451%2C%20United%20States';
+          
+          // Make the request
+          const response = await request.get(endpoint);
+          
+          // Check if the response status is 200 OK
+          expect(response.status()).toBe(200);
+          
+          // Further validation of response body
+          const responseBody = await response.json();
+          expect(responseBody).toHaveProperty('type', 'success');
+          // Additional assertions can be added here based on expected response format
+      });
+});

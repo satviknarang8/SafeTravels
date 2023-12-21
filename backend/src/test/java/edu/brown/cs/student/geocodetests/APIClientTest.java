@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import static org.mockito.Mockito.*;
 
 
 public class APIClientTest {
+  // Test method to verify fetching coordinates
   @Test
   public void testGetCoordinates() throws DatasourceException {
     APIClient client = new APIClient();
@@ -27,9 +29,51 @@ public class APIClientTest {
     assertEquals(expectedLat, coordinates.get(0), 0.0001, "Latitude should match the expected value");
     assertEquals(expectedLng, coordinates.get(1), 0.0001, "Longitude should match the expected value");
   }
+
+  // Test method to verify fetching coordinates with another valid address
+  @Test
+  public void testGetCoordinatesWithAnotherValidAddress() throws DatasourceException {
+    List<Double> coordinates = client.getCoordinates("1600 Amphitheatre Parkway, Mountain View, CA");
+
+    assertNotNull(coordinates, "Coordinates should not be null");
+    assertEquals(2, coordinates.size(), "There should be two elements in the coordinates list");
+
+    double expectedLat = 37.4224764;
+    double expectedLng = -122.0842499;
+
+    assertEquals(expectedLat, coordinates.get(0), 0.0001, "Latitude should match the expected value");
+    assertEquals(expectedLng, coordinates.get(1), 0.0001, "Longitude should match the expected value");
+  }
+  @Test
+  public void testGetCoordinatesWithIncorrectAddress() {
+    Exception exception = assertThrows(DatasourceException.class, () -> {
+      client.getCoordinates("1234 Unknown Street, Imaginary City");
+    });
+
+    String expectedMessage = "No results found";
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+
+
+  @Test
+  public void testGetCoordinatesWithEmptyAddress() {
+    Exception exception = assertThrows(DatasourceException.class, () -> {
+      client.getCoordinates("");
+    });
+
+    String expectedMessage = "API connection not success status Bad Request";
+    System.out.println(exception.getMessage());
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+  }
   private APIClient client;
   private HttpURLConnection mockConnection;
 
+  // Method to set up before each test
   @BeforeEach
   public void setUp() throws DatasourceException {
     client = new APIClient();
@@ -37,15 +81,51 @@ public class APIClientTest {
     // Set up other necessary mock behaviors
   }
 
+  // Test method to verify successful API call
   @Test
   public void testSuccessfulApiCall() throws Exception {
-    String sampleResponse = "{\"data\": [{\"safetyScores\": {\"overall\": 45}}]}";
 
     Map<String, Object> result = client.getSafetyRatings(41.397158, 2.160873, 2);
     assertNotNull(result);
     assertTrue(result.containsKey("data"));
-    // Additional assertions to check the structure and values of the response
+    List<Map<String, Object>> dataList = (List<Map<String, Object>>) result.get("data");
+    Map<String, Object> firstEntry = dataList.get(0);
+    assertTrue(firstEntry.containsKey("type"), "Entry should contain type key");
+    assertTrue(firstEntry.containsKey("id"), "Entry should contain id key");
+    assertTrue(firstEntry.containsKey("geoCode"), "Entry should contain geoCode key");
+    assertTrue(firstEntry.containsKey("safetyScores"), "Entry should contain safetyScores key");
+
+    // Validate geoCode and safetyScores
+    Map<String, Double> geoCode = (Map<String, Double>) firstEntry.get("geoCode");
+    Map<String, Double> safetyScores = (Map<String, Double>) firstEntry.get("safetyScores");
+
+    assertNotNull(geoCode, "geoCode should not be null");
+    assertNotNull(safetyScores, "safetyScores should not be null");
+
+    // Validate specific safety scores
+    assertTrue(safetyScores.containsKey("overall"), "safetyScores should contain overall key");
+    assertTrue(safetyScores.containsKey("theft"), "safetyScores should contain theft key");
   }
+
+  // Test method for zero radius
+  @Test
+  public void testZeroRadius() throws DatasourceException {
+    Map<String, Object> result = client.getSafetyRatings(41.397158, 2.160873, 0);
+    assertNotNull(result);
+    assertFalse(result.containsKey("data"));
+  }
+
+
+  // Test method for wrong coordinates
+  @Test
+  public void testWrongCoord() throws DatasourceException {
+    Map<String, Object> result = client.getSafetyRatings(-1018439, -10909209, 0);
+    assertNotNull(result);
+    assertFalse(result.containsKey("data"));
+  }
+
+
+
 
 //  @Test
 //  public void testApiCallWithInvalidCoordinates() {

@@ -10,15 +10,29 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Handles login and registration requests.
+ */
 public class LoginManager implements Route {
 
   private static Map<String, Integer> userCredentials;
 
+  /**
+   * Constructor initializes user credentials with a default test user.
+   */
   public LoginManager() {
     userCredentials = new HashMap<>();
     userCredentials.put("test1", "test1".hashCode());
   }
 
+  /**
+   * Handles incoming requests.
+   *
+   * @param request  The HTTP request object.
+   * @param response The HTTP response object.
+   * @return The response object based on the request type.
+   * @throws Exception Throws an exception if there's an error processing the request.
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     String path = request.pathInfo();
@@ -38,6 +52,12 @@ public class LoginManager implements Route {
     }
   }
 
+  /**
+   * Handles the login process.
+   *
+   * @param request The HTTP request object containing user credentials.
+   * @return A response based on the success or failure of the login attempt.
+   */
   private Object handleLogin(Request request) {
     String username = request.queryParams("username");
     String password = request.queryParams("password");
@@ -67,6 +87,12 @@ public class LoginManager implements Route {
     }
   }
 
+  /**
+   * Handles the registration process.
+   *
+   * @param request The HTTP request object containing user credentials.
+   * @return A response based on the success or failure of the registration attempt.
+   */
   private Object handleRegister(Request request) {
     String username = request.queryParams("username");
     String password = request.queryParams("password");
@@ -88,12 +114,25 @@ public class LoginManager implements Route {
     }
   }
 
+  /**
+   * Converts a map to its JSON string representation.
+   *
+   * @param responseMap The map to convert.
+   * @return The JSON string representation of the map.
+   */
   private String toJson(Map<String, Object> responseMap) {
     Moshi moshi = new Moshi.Builder().build();
     Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
     JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
     return adapter.toJson(responseMap);
   }
+  /**
+   * Registers a new user.
+   *
+   * @param username The username of the new user.
+   * @param password The password of the new user.
+   * @throws AuthenticationException If the username already exists.
+   */
 
   public void registerUser(String username, String password) throws AuthenticationException {
     if (userCredentials.containsKey(username)) {
@@ -106,6 +145,13 @@ public class LoginManager implements Route {
     System.out.println(userCredentials);
   }
 
+  /**
+   * Authenticates a user.
+   *
+   * @param username The username of the user to authenticate.
+   * @param password The password of the user to authenticate.
+   * @throws AuthenticationException If the authentication fails.
+   */
   public void authenticateUser(String username, String password) throws AuthenticationException {
     System.out.println(username);
     System.out.println(userCredentials);
@@ -121,10 +167,19 @@ public class LoginManager implements Route {
     }
   }
 
+  /**
+   * Hashes a password using its hash code.
+   *
+   * @param password The password to hash.
+   * @return The hash code of the password.
+   */
   public int hashPassword(String password) {
     return password.hashCode();
   }
 
+  /**
+   * Custom exception for authentication issues.
+   */
   public static class AuthenticationException extends Exception {
     public AuthenticationException(String message) {
       super(message);

@@ -12,7 +12,7 @@ Repository Link: https://github.com/cs0320-f23/term-project-ssquali1-snarang4-fp
 
 ## Team Members, Contributions
 
-This project had four contributors: Sofyan Squali-Houssaini(ssquali1), Yash Kothari (ykothari7), Falak Pabari (fpabari) and Satvik Narang (snarang4)
+This project had four contributors: Satvik Narang (snarang4), Sofyan Squali-Houssaini(ssquali1), Yash Kothari (ykothari7), and Falak Pabari (fpabari)
 
 ##### Contribution Details
 
